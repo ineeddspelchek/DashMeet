@@ -3,7 +3,7 @@
     https://stackoverflow.com/questions/8174282/link-to-reload-current-page
     https://getbootstrap.com/docs/5.0/examples/sidebars/
     https://community.wappler.io/t/bootstrap-5-offcanvas-not-working-with-local-bootstrap/32111/6
-
+    https://stackoverflow.com/questions/74747140/bootstrap-error-this-config-is-undefined
 -->
 
 <!DOCTYPE html>
@@ -47,7 +47,7 @@
             <!-- two versions of the left column (an offcanvas sidemenu on mobile and an oncanvas column on desktop) -->
             <div class="offcanvas-xl offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
                 <div class="offcanvas-header">
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="#offcanvas" aria-label="Close"></button>
                   <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
                 </div>
                 <div class="p-2 d-xl-none offcanvas-body">
@@ -68,7 +68,10 @@
                 </p>
 
                 <p class="member-title">Joined Attendees:</p>
-                <p class="member-body">Sean</p>
+                <p class="d-flex flex-column member-body">
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="gry5bu@virginia.edu">Sean</a>
+                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="han5jn@virginia.edu">Henry</a>
+                </p>
             </div>
         </div>
         
