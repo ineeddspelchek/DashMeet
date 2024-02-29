@@ -29,7 +29,7 @@
     <body>
         <header>
             <nav class="navbar navbar-light">
-                <a class="navbar-brand" href="hostMain.html">DashMeet</a>
+                <a class="navbar-brand" href="hostMain.html" tabindex="0">DashMeet</a>
                 <form class="form-inline">
                     <a class="account" href="account.html">
                         John Doe
@@ -51,17 +51,11 @@
             <div class="d-flex flex-row flex-fill align-items-stretch column-area">
 
                 <!-- ################################################################################################################## -->
-                <div class="offcanvas-xl offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
+                <div class="offcanvas-xl d-xl-none offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasLeft" aria-label="Close"></button>
                     </div>
-                    <div class="p-2 d-xl-none offcanvas-body">
-                      ...
-                    </div>
-                </div>
-
-                <div class="p-2 d-none d-xl-block flex-shrink-1 left-column left-column-desktop"> 
-                    <div class="d-flex flex-row drop-down-header drop-down-header-h1">
+                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#my-calendar-collapse" id="my-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
                         </a>    
@@ -76,26 +70,88 @@
                         </div>
                     </div>
 
-                    <div class="shared-availabilities">
-                        <div class="icon">
-                            
-                        </div>
+                    <div class="d-flex flex-row align-items-center shared-availabilities-container">
+                        <input type="checkbox" class="btn-check shared-availabilities" id="shared-availabilities" autocomplete="off">
+                        <label class="btn btn-outline-primary shared-availabilities" for="shared-availabilities"></label><br>
+                        <p class="p-0">Shared Availabilities</p>
                     </div>
 
-                    <div class="d-flex flex-row drop-down-header drop-down-header-h1">
+
+                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
-                        </a>    
+                        </a>
                         <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
-                        </a>      
-                        <p>Other's Calendar</p>        
+                        </a>
+                        <p>Other's Calendars</p>        
                     </div>        
-                    <div class="collapse collapse-body" id="others-calendar-collapse">
+                    <ul class="collapse collapse-body list-group others-calendars-collapse-body" id="others-calendar-collapse">
+                        <li class="list-group-item">
+                            <div class="d-flex flex-row align-items-center others-calenders-container">
+                                <input type="checkbox" class="btn-check others-calenders" id="others-calenders-1" autocomplete="off">
+                                <label class="btn btn-outline-warning others-calenders" for="others-calenders-1"></label><br>
+                                <p class="p-0">Sean</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex flex-row align-items-center others-calendars-container">
+                                <input type="checkbox" class="btn-check others-calenders" id="others-calenders-2" autocomplete="off">
+                                <label class="btn btn-outline-success others-calenders" for="others-calenders-2"></label><br>
+                                <p class="p-0">Henry</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-2 d-none d-xl-block flex-shrink-1 left-column left-column-desktop"> 
+                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                        <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#my-calendar-collapse" id="my-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="images/left-arrow.png">
+                        </a>    
+                        <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#my-calendar-collapse" id="my-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="images/left-arrow.png">
+                        </a>      
+                        <p>My Calendar</p>
+                    </div>        
+                    <div class="collapse collapse-body" id="my-calendar-collapse">
                         <div class="card card-body">
                           Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
                         </div>
                     </div>
+
+                    <div class="d-flex flex-row align-items-center shared-availabilities-container">
+                        <input type="checkbox" class="btn-check shared-availabilities" id="shared-availabilities" autocomplete="off">
+                        <label class="btn btn-outline-primary shared-availabilities" for="shared-availabilities"></label><br>
+                        <p class="p-0">Shared Availabilities</p>
+                    </div>
+
+
+                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                        <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="images/left-arrow.png">
+                        </a>
+                        <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="images/left-arrow.png">
+                        </a>
+                        <p>Other's Calendars</p>        
+                    </div>        
+                    <ul class="collapse collapse-body list-group others-calendars-collapse-body" id="others-calendar-collapse">
+                        <li class="list-group-item">
+                            <div class="d-flex flex-row align-items-center others-calenders-container">
+                                <input type="checkbox" class="btn-check others-calenders" id="others-calenders-1" autocomplete="off">
+                                <label class="btn btn-outline-warning others-calenders" for="others-calenders-1"></label><br>
+                                <p class="p-0">Sean</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex flex-row align-items-center others-calendars-container">
+                                <input type="checkbox" class="btn-check others-calenders" id="others-calenders-2" autocomplete="off">
+                                <label class="btn btn-outline-success others-calenders" for="others-calenders-2"></label><br>
+                                <p class="p-0">Henry</p>
+                            </div>
+                        </li>
+                    </ul>
                     
                 </div>
 
