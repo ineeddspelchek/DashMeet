@@ -70,12 +70,6 @@
                         </div>
                     </div>
 
-                    <div class="d-flex flex-row align-items-center shared-availabilities-container">
-                        <input type="checkbox" class="btn-check shared-availabilities" id="shared-availabilities" autocomplete="off">
-                        <label class="btn btn-outline-primary shared-availabilities" for="shared-availabilities"></label><br>
-                        <p class="p-0">Shared Availabilities</p>
-                    </div>
-
 
                     <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -105,53 +99,81 @@
                 </div>
 
                 <div class="p-2 d-none d-xl-block flex-shrink-1 left-column left-column-desktop"> 
-                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                    <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#my-calendar-collapse" id="my-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
                         </a>    
                         <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#my-calendar-collapse" id="my-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
                         </a>      
-                        <p>My Calendar</p>
+                        <p>iCloud Calendars</p>
                     </div>        
-                    <div class="collapse collapse-body" id="my-calendar-collapse">
-                        <div class="card card-body">
-                          Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                        </div>
+                    <div class="border border-dark collapse collapse-body" id="my-calendar-collapse" style="margin-left: 1rem;">
+                            <!-- inside collapsed -->
+                            <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                                <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#my-calendar-collapse2" id="my-calendar-collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <img src="images/left-arrow.png">
+                                </a>    
+                                <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#my-calendar-collapse2" id="my-calendar-collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <img src="images/left-arrow.png">
+                                </a>      
+                                <p>johndoe@icloud.com</p>
+                            </div> 
+                            <!-- inside collapsed -->
                     </div>
 
-                    <div class="d-flex flex-row align-items-center shared-availabilities-container">
+                    <!-- <div class="d-flex flex-row align-items-center shared-availabilities-container">
                         <input type="checkbox" class="btn-check shared-availabilities" id="shared-availabilities" autocomplete="off">
                         <label class="btn btn-outline-primary shared-availabilities" for="shared-availabilities"></label><br>
                         <p class="p-0">Shared Availabilities</p>
-                    </div>
+                    </div> -->
 
 
-                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                    <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
                         </a>
                         <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#others-calendar-collapse" id="others-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <img src="images/left-arrow.png">
                         </a>
-                        <p>Other's Calendars</p>        
-                    </div>        
-                    <ul class="collapse collapse-body list-group others-calendars-collapse-body" id="others-calendar-collapse">
-                        <li class="list-group-item">
-                            <div class="d-flex flex-row align-items-center others-calenders-container">
-                                <input type="checkbox" class="btn-check others-calenders" id="others-calenders-1" autocomplete="off">
-                                <label class="btn btn-outline-warning others-calenders" for="others-calenders-1"></label><br>
-                                <p class="p-0">Sean</p>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="d-flex flex-row align-items-center others-calendars-container">
-                                <input type="checkbox" class="btn-check others-calenders" id="others-calenders-2" autocomplete="off">
-                                <label class="btn btn-outline-success others-calenders" for="others-calenders-2"></label><br>
-                                <p class="p-0">Henry</p>
-                            </div>
-                        </li>
-                    </ul>
+                        <p>Google Calendars</p>        
+                    </div>     
+                    <div class="border border-dark collapse collapse-body" id="others-calendar-collapse" style="margin-left: 1rem;">
+                        <!-- inside collapsed -->
+                        <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                            <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#my-calendar-collapse3" id="my-calendar-collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <img src="images/left-arrow.png">
+                            </a>    
+                            <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#my-calendar-collapse3" id="my-calendar-collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <img src="images/left-arrow.png">
+                            </a>      
+                            <p>johndoe@gmail.com</p>
+                        </div> 
+                    </div>
+
+                    <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                        <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#outlook-calendar-collapse" id="outlook-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="images/left-arrow.png">
+                        </a>
+                        <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#outlook-calendar-collapse" id="outlook-calendar-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="images/left-arrow.png">
+                        </a>
+                        <p>Outlook Calendars</p>        
+                    </div>     
+                    <div class="border border-dark collapse collapse-body" id="outlook-calendar-collapse" style="margin-left: 1rem;">
+                        <!-- inside collapsed -->
+                        <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                            <a class="collapse show btn btn-link collapse-button collapse-button-inactive" data-bs-toggle="collapse" href="#my-calendar-collapse4" id="my-calendar-collapse4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <img src="images/left-arrow.png">
+                            </a>    
+                            <a class="collapse btn btn-link collapse-button collapse-button-active" data-bs-toggle="collapse" href="#my-calendar-collapse4" id="my-calendar-collapse4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <img src="images/left-arrow.png">
+                            </a>      
+                            <p>johndoe@gmail.com</p>
+                        </div> 
+                    </div>
+                       
+                    
                     
                 </div>
 
