@@ -1,8 +1,13 @@
 // Sources:
 // https://stackoverflow.com/questions/5721904/make-body-fill-entire-screen
 // https://stackoverflow.com/questions/23907694/how-do-i-stop-a-link-changing-color-on-hover
+// https://stackoverflow.com/questions/13630229/can-i-have-an-onclick-effect-in-css
 
-html, body {
+html {
+    height:100%;
+}
+
+body {
     height:100%;
 }
 
@@ -10,39 +15,46 @@ header {
     nav {
         background-color: #64d195;
 
-        a {
+        .a1 {
+            padding-left:10px;
             font-size: x-large !important;
             color: black;
             text-decoration: none;
         }
+        a {
+            .a1();
+        }
         a:hover {
-            font-size: x-large;
-            color: black;
-            text-decoration: none;
+            .a1();
         }
 
         form {
-            a {
+            .a2 {
+                padding-right:10px;
                 font-size: larger;
                 color: black;
                 text-decoration: none;
                 margin-left: 10px;
             }
+            a {
+                .a2();
+            }
             a:hover {
-                font-size: larger;
-                color: black;
-                text-decoration: none;
-                margin-left: 10px;
+                .a2();
             }
         }
     }
 }
 
 div.subheader {
+    margin:0px;
+    width:100%;
     text-align:center;
+    color:white;
     padding-top:5px;
     padding-bottom:5px;
-    background-color:rgb(162, 199, 216);
+
+    background-color:rgb(55, 55, 55);
 
     border-style:solid;
     border-top-color:black;
@@ -54,29 +66,47 @@ div.subheader {
 }
 
 div.d-flex {
-    d-flex {
-        margin:0;
-        padding:0;
-        height:100%;
-        width:100%;
-        max-width: 100%;
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+    max-width: 100%;
 
-        left-column {
+    .button_sidemenu-button {
+        margin-top:-1px;
+        background-color: #acacac;
+
+        color:rgb(0, 0, 0);
+        font-size: xx-large;
+        padding:3px !important;
+        
+        border-style:solid;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-color: rgb(0, 0, 0);
+    }
+    button.sidemenu-button {
+        .button_sidemenu-button();
+    }
+    button.sidemenu-button:checked {
+        .button_sidemenu-button();
+    }
+
+    left-column {
+        
+    }   
+        left-column-mobile {
             
-        }   
-            left-column-mobile {
-                
-            }
-            left-column-desktop {
-                
-            }
-
-        middle-column {
-
+        }
+        left-column-desktop {
+            
         }
 
-        right-column {
-            
-        }
+    middle-column {
+
+    }
+
+    right-column {
+        
     }
 }
