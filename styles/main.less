@@ -2,6 +2,9 @@
 // https://stackoverflow.com/questions/5721904/make-body-fill-entire-screen
 // https://stackoverflow.com/questions/23907694/how-do-i-stop-a-link-changing-color-on-hover
 // https://stackoverflow.com/questions/13630229/can-i-have-an-onclick-effect-in-css
+// https://www.w3schools.com/cssref/css3_pr_mediaquery.php
+// https://www.w3schools.com/css/css_positioning.asp
+// https://stackoverflow.com/questions/2434602/setting-width-height-as-percentage-minus-pixels
 
 html {
     height:100%;
@@ -65,15 +68,13 @@ div.subheader {
     border-right-width:0px;
 }
 
-div.d-flex {
-    margin:0;
-    padding:0;
+div.subbody {
     height:100%;
-    width:100%;
-    max-width: 100%;
+    position:relative;
 
     .button_sidemenu-button {
         margin-top:-1px;
+        height:100%;
         background-color: #acacac;
 
         color:rgb(0, 0, 0);
@@ -92,47 +93,80 @@ div.d-flex {
         .button_sidemenu-button();
     }
 
-    div.left-column {
-        border-right-style: solid;
-        
-    }   
-        div.left-column-mobile {
+    div.d-flex {
+        margin:0;
+        @media screen and (max-width: 1200px) {
+            position: absolute;
+            top:0px;
+            left:27.75px;
+            /* Firefox */
+            width: -moz-calc(100% - 27.75px);
+            /* WebKit */
+            width: -webkit-calc(100% - 27.75px);
+            /* Opera */
+            width: -o-calc(100% - 27.75px);
+            /* Standard */
+            width: calc(100% - 27.75px);
+        }
+        padding:0;
+        height:100%;
+
+        @media screen and (max-width: 799px) {
+            flex-wrap:wrap;
+        }
+        @media screen and (min-width: 800px) {
+            flex-wrap:nowrap;
+        }
+
+        div.left-column {
+            border-right-style: solid;
             
-        }
-        div.left-column-desktop {
-            
+        }   
+            div.left-column-mobile {
+                
+            }
+            div.left-column-desktop {
+                min-width:300px;
+            }
+
+        div.middle-column {
         }
 
-    div.middle-column {
+        div.right-column {
+            min-width:200px;
+            @media screen and (max-width: 799px) {
+                width:100%;
+                border-top-style: solid;
+            }
+            @media screen and (min-width: 800px) {
+                width:auto;
+                border-left-style: solid;
+            }
 
-    }
+            text-align: center;
+            a {
+                color:black !important;
+                text-decoration-style: dashed;
+                width:min-content;
+                margin-left:auto;
+                margin-right:auto;
+            }
 
-    div.right-column {
-        border-left-style: solid;
-
-        text-align: center;
-        a {
-            color:black !important;
-            text-decoration-style: dashed;
-            width:min-content;
-            margin-left:auto;
-            margin-right:auto;
-        }
-
-        p.host-title {
-            font-size: larger;
-            margin:0px;
-        }
-        p.host-body {
-            
-        }
-        p.member-title {
-            margin-top: 20px;
-            margin:0px;
-            font-size: larger;
-        }
-        p.member-body {
-            
+            p.host-title {
+                font-size: larger;
+                margin:0px;
+            }
+            p.host-body {
+                
+            }
+            p.member-title {
+                margin-top: 20px;
+                margin:0px;
+                font-size: larger;
+            }
+            p.member-body {
+                
+            }
         }
     }
 }
