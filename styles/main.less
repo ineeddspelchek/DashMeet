@@ -15,32 +15,32 @@ header {
     nav {
         background-color: #64d195;
 
-        .a1 {
+        .navbar-brand {
             padding-left:10px;
             font-size: x-large !important;
             color: black;
             text-decoration: none;
         }
-        a {
-            .a1();
+        a.navbar-brand {
+            .navbar-brand();
         }
-        a:hover {
-            .a1();
+        a.navbar-brand:hover {
+            .navbar-brand();
         }
 
         form {
-            .a2 {
+            .account {
                 padding-right:10px;
                 font-size: larger;
                 color: black;
                 text-decoration: none;
                 margin-left: 10px;
             }
-            a {
-                .a2();
+            a.account {
+                .account();
             }
-            a:hover {
-                .a2();
+            a.account:hover {
+                .account();
             }
         }
     }
@@ -92,7 +92,7 @@ div.d-flex {
         .button_sidemenu-button();
     }
 
-    left-column {
+    div.left-column {
         
     }   
         left-column-mobile {
@@ -102,11 +102,31 @@ div.d-flex {
             
         }
 
-    middle-column {
+    div.middle-column {
+        border-left-style: solid;
+        border-right-style: solid;
 
     }
 
-    right-column {
-        
+    div.right-column {
+
+        text-align: center;
+        a {
+            color:black !important;
+            text-decoration-style: dashed;
+        }
+
+        p.host-title {
+            
+        }
+        p.host-body {
+            
+        }
+        p.member-title {
+            
+        }
+        p.member-body {
+            
+        }
     }
 }
