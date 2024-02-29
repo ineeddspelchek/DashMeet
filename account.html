@@ -34,89 +34,108 @@
         </div>
 
 
-        <div class="d-flex flex-row align-items-stretch flex-wrap column-area">
-            <button class="p-2 d-xl-none btn sidemenu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">≡</button> <!-- only show on mobile -->
+        <div class="container">
+            <button class="p-2 d-xl-none overflow-visible btn sidemenu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft">≡</button> <!-- only show on mobile -->
+            
+            <div class="d-flex flex-row flex-fill align-items-stretch column-area">
 
-            <!-- two versions of the left column (an offcanvas sidemenu on mobile and an oncanvas column on desktop) -->
-            <div class="offcanvas-xl offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-                <div class="offcanvas-header">
-                <button type="button" class="btn-close" data-bs-dismiss="#offcanvas" aria-label="Close"></button>
-                  <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
-                </div>
-                <div class="p-2 d-xl-none offcanvas-body">
-                  ...
-                </div>
-            </div>
-            <div class="p-2 col-sm-2 d-none d-xl-block left-column left-column-desktop"> 
-                <h3>
-                    Edit Profile:
-                </h3>
-                <form>
-                    <div class="spacing">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                <div class="offcanvas-xl offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
+                    <div class="offcanvas-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasLeft" aria-label="Close"></button>
+                        <h5 class="offcanvas-title" id="offcanvasLeftLabel">Edit Profile</h5>
                     </div>
-                    <div class="spacing">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                    <div class="p-2 d-xl-none offcanvas-body">
+                        <form>
+                            <div class="spacing">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                            </div>
+                            <div class="spacing">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                            </div>
+                            <div class="spacing">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
                     </div>
-                    <div class="spacing">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email" placeholder="Enter your email">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
-            </div>
-
-            <div class="p-2 col-xl flex-grow-1 right-column">
-               <h3>My Meetings</h3>
-               <div class="card">
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Date & Time</th>
-                                <th scope="col">Meeting Title</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">View</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Feb 29, 2024</td>
-                                <td>That Big Meeting With The Boss</td> 
-                                <td>Host</td>
-                                <td><a href="meeting1.html" class="btn btn-primary">View Meeting</a></td>
-                            </tr>
-                            <tr>
-                                <td>Mar 5, 2024</td>
-                                <td>Transitional Product Meeting</td> 
-                                <td>Member</td>
-                                <td><a href="meeting2.html" class="btn btn-primary">View Meeting</a></td>
-                            </tr>
-                            <tr>
-                                <td>Mar 8, 2024</td>
-                                <td>Boring Meeting</td> 
-                                <td>Host</td>
-                                <td><a href="meeting3.html" class="btn btn-primary">View Meeting</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-    
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-              </nav>
-            </div>
 
+                <div class="p-2 col-sm-2 d-none d-xl-block left-column left-column-desktop"> 
+                    <h3>
+                        Edit Profile:
+                    </h3>
+                        <div class="card">
+                            <form>
+                                <div class="spacing">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                                </div>
+                                <div class="spacing">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                                </div>
+                                <div class="spacing">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                </div>
+
+                <div class="p-2 col-xl flex-grow-1 right-column">
+                <h3>My Meetings</h3>
+                <div class="card spacing">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date & Time</th>
+                                    <th scope="col">Meeting Title</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Feb 29, 2024</td>
+                                    <td>That Big Meeting With The Boss</td> 
+                                    <td>Host</td>
+                                    <td><a href="meeting1.html" class="btn btn-primary">View Meeting</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 5, 2024</td>
+                                    <td>Transitional Product Meeting</td> 
+                                    <td>Member</td>
+                                    <td><a href="meeting2.html" class="btn btn-primary">View Meeting</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Mar 8, 2024</td>
+                                    <td>Boring Meeting</td> 
+                                    <td>Host</td>
+                                    <td><a href="meeting3.html" class="btn btn-primary">View Meeting</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+        
+                
+                </div>
+
+            </div>
         </div>
     
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
