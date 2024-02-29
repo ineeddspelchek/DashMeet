@@ -44,6 +44,34 @@
                 Jane Doe's <i>"Graphic Design is Our Passion"</i> Meet
             </span>
         </div>
+          
+        <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="shareModalLabel">Share Meeting</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="d-flex flex-column modal-body">
+                    <input type="text" readonly="true" value="https://quickmeet.com/rq285jdn">
+                    <img class="copy-icon" src="images/copy.png">
+
+                    <div class="d-flex align-items-center btn btn-light gmail">
+                        <img class="share-icon" src="images/gmail.png">
+                        <p>Gmail</p>
+                    </div>
+                    <div class="d-flex align-items-center btn btn-light facebook">
+                        <img class="share-icon" src="images/facebook.png">
+                        <p>Facebook</p>
+                    </div>
+                    <div class="d-flex align-items-center btn btn-light twitter">
+                        <img class="share-icon" src="images/twitter.png">
+                        <p>X (Twitter)</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
 
         <div class="subbody">
             <button class="p-2 d-xl-none overflow-visible btn sidemenu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft">≡</button> <!-- only show on mobile -->
@@ -285,7 +313,8 @@
                     <p class="description-title">Description:</p>
                     <textarea class="description-entry" name="desc-entry"></textarea>
 
-                    <button class="btn btn-primary book-button" type="button">Book Meeting</button>
+                    <button class="btn btn-dark share-button" type="button" data-bs-toggle="modal" data-bs-target="#shareModal">Invite More</button>
+                    <button class="btn btn-success book-button" type="button">Book Meeting</button>
                 </div>
             </div>
         </div>
