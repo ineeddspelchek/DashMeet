@@ -4,7 +4,6 @@
 // https://stackoverflow.com/questions/13630229/can-i-have-an-onclick-effect-in-css
 // https://www.w3schools.com/cssref/css3_pr_mediaquery.php
 // https://www.w3schools.com/css/css_positioning.asp
-// https://stackoverflow.com/questions/2434602/setting-width-height-as-percentage-minus-pixels
 
 html {
     height:100%;
@@ -100,22 +99,15 @@ div.subbody {
             position: absolute;
             top:0px;
             left:27.75px;
-            /* Firefox */
-            width: -moz-calc(100% - 27.75px);
-            /* WebKit */
-            width: -webkit-calc(100% - 27.75px);
-            /* Opera */
-            width: -o-calc(100% - 27.75px);
-            /* Standard */
             width: calc(100% - 27.75px);
         }
         padding:0;
         height:100%;
 
-        @media screen and (max-width: 799px) {
+        @media screen and (max-width: 999px) {
             flex-wrap:wrap;
         }
-        @media screen and (min-width: 800px) {
+        @media screen and (min-width: 1000px) {
             flex-wrap:nowrap;
         }
 
@@ -134,13 +126,12 @@ div.subbody {
         }
 
         div.right-column {
-            min-width:200px;
-            @media screen and (max-width: 799px) {
+            @media screen and (max-width: 999px) {
                 width:100%;
                 border-top-style: solid;
             }
-            @media screen and (min-width: 800px) {
-                width:auto;
+            @media screen and (min-width: 1000px) {
+                width:300px;
                 border-left-style: solid;
             }
 
@@ -167,6 +158,20 @@ div.subbody {
             }
             p.member-body {
                 
+            }
+
+            p.description-title {
+                margin-top:auto;
+                text-align: left;
+                margin-bottom:0;
+            }
+            textarea.description-entry {
+                min-height:32px;
+                width:100%;
+            }
+
+            button.book-button {
+                margin-top: 10px;
             }
         }
     }
