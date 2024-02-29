@@ -37,7 +37,7 @@
         <div class="container">
             <button class="p-2 d-xl-none overflow-visible btn sidemenu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft">≡</button> <!-- only show on mobile -->
             
-            <div class="d-flex flex-row flex-fill align-items-stretch column-area">
+            <div class="d-flex flex-row flex-fill flex-wrap align-items-stretch column-area">
 
                 <div class="offcanvas-xl offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
                     <div class="offcanvas-header">
@@ -45,25 +45,10 @@
                         <h5 class="offcanvas-title" id="offcanvasLeftLabel">Edit Profile</h5>
                     </div>
                     <div class="p-2 d-xl-none offcanvas-body">
-                        <form>
-                            <div class="spacing">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
-                            </div>
-                            <div class="spacing">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
-                            </div>
-                            <div class="spacing">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Enter your email">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </form>
                     </div>
                 </div>
 
-                <div class="p-2 col-sm-2 d-none d-xl-block left-column left-column-desktop"> 
+                <div class="p-2 col-sm-2 flex-grow-1 left-column "> 
                     <h3>
                         Edit Profile:
                     </h3>
@@ -89,7 +74,6 @@
                 <div class="p-2 col-xl flex-grow-1 right-column">
                 <h3>My Meetings</h3>
                 <div class="card spacing">
-                    <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -129,7 +113,6 @@
                             <li class="page-item"><a class="page-link" href="#">Next</a></li>
                             </ul>
                         </nav>
-                    </div>
                 </div>
         
                 
