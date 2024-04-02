@@ -28,17 +28,7 @@
         
     </head>
     <body>
-        <header>
-            <nav class="navbar navbar-light">
-                <a class="navbar-brand" href="hostMain.html" tabindex="0">DashMeet</a>
-                <form class="form-inline">
-                    <a class="account" href="index.html">
-                        Jane Doe
-                        <img src="images/account.png" alt="account icon">
-                    </a>
-                </form>
-            </nav>
-        </header>
+        <?php include("header.php"); ?>
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
