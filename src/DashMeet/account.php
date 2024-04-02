@@ -82,7 +82,7 @@
                                     <td>Graphic Design is Our Passion</td> 
                                     <td>Pending</td>
                                     <td>Host</td>
-                                    <td><a href="?=hostMain.html" class="btn btn-primary">View Meeting</a></td>
+                                    <td><a href="?command=hostMain" class="btn btn-primary">View Meeting</a></td>
                                 </tr>
                                 <tr>
                                     <td>Mar 5, 2024</td>
@@ -116,7 +116,7 @@
             </div>
             <div class="p-2 col-xl flex-grow-1 right-column">
                 <h3>Edit Availabilities:</h3>
-                <a href="memberMain.html" class="btn btn-primary">Edit</a>
+                <a href="?command=memberMain" class="btn btn-primary">Edit</a>
             </div>
         </div>
     

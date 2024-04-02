@@ -93,6 +93,8 @@ class controller {
 
     public function account() {
         $message = "";
+        $email = $_SESSION["email"];
+
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
@@ -101,6 +103,8 @@ class controller {
 
     public function hostMain() {
         $message = "";
+        $email = $_SESSION["email"];
+
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
@@ -109,6 +113,8 @@ class controller {
 
     public function memberMain() {
         $message = "";
+        $email = $_SESSION["email"];
+
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
