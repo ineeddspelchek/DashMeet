@@ -1,8 +1,11 @@
+<!-- Sources: 
+    https://www.w3schools.com/php/php_file_upload.asp 
+-->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- https://cs4640.cs.virginia.edu/han5jn/DashMeet -->
-        <meta charset="utf-8">
+         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
@@ -103,9 +106,15 @@
                     </div>
                 </div>
 
-                <div class="p-2 flex-fill">
+                <div class="p-2 col-12 flex-fill">
                     <h3>My Calendars:</h3>
                     <div class="card spacing">
+                        <form action="?command=import" method="post" enctype="multipart/form-data">
+                            <div class="input-group mb-3">
+                                <button class="btn btn-primary" type="submit" name="submitImport" id="submitImport">Import New Calendar</button>
+                                <input type="file" class="form-control" name="import" id="import">
+                            </div>
+                        </form>
                     </div>
                 </div>
 

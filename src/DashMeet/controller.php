@@ -24,6 +24,9 @@ class controller {
             case "account":
                 $this->account();
                 break;
+            case "import":
+                $this->import();
+                break;
             case "hostMain":
                 $this->hostMain();
                 break;
@@ -88,6 +91,16 @@ class controller {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
         include("/opt/src/DashMeet/account.php");
+    }
+
+    public function import() {
+        $message = "";
+        $email = $_SESSION["email"];
+
+        if (!empty($this->errorMessage)) {
+            $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
+        }
+        include("/opt/src/DashMeet/import.php");
     }
 
     public function hostMain() {
