@@ -41,16 +41,16 @@
                         <div class="card">
                             <form>
                                 <div class="spacing">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
-                                </div>
-                                <div class="spacing">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
                                 </div>
                                 <div class="spacing">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                                </div>
+                                <div class="spacing">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="text" class="form-control" id="password" placeholder="Change your password">
                                 </div>
                                 <button type="submit" class="btn btn-primary" disabled>Save Changes</button>
                             </form>

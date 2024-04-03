@@ -11,6 +11,9 @@
         $outJSON .= addEvent($explodedStr[$i]);
     }
 
+    $outJSON .= "}";
+
+
     header('Content-Type: application/json; charset=utf-8');
     echo $outJSON;
 
@@ -23,9 +26,5 @@
 
     function addEvent($inp) {
 
-    }
-
-    function close() {
-        return "}";
     }
 ?>

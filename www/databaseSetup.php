@@ -19,5 +19,6 @@
 
     $res  = pg_query($dbHandle, "create table users (
             email  text primary key,
+            fullname text,
             password    text
     );");
