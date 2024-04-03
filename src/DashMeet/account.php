@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="p-2 col-sm-2 flex-grow-1 left-column "> 
+                <div class="p-2 col-6 flex-grow-1"> 
                     <h3>
                         Edit Profile:
                     </h3>
@@ -63,60 +63,59 @@
                         </div>
                 </div>
 
-                <div class="p-2 col-xl flex-grow-1 right-column">
-                <h3>My Meetings</h3>
-                <div class="card spacing">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Date & Time</th>
-                                    <th scope="col">Meeting Title</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">View</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Feb 29, 2024</td>
-                                    <td>Graphic Design is Our Passion</td> 
-                                    <td>Pending</td>
-                                    <td>Host</td>
-                                    <td><a href="?command=hostMain" class="btn btn-primary">View Meeting</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Mar 5, 2024</td>
-                                    <td>Transitional Product Meeting</td> 
-                                    <td>Pending</td>
-                                    <td>Member</td>
-                                    <td><a href="meeting2.html" class="btn btn-primary disabled">View Meeting</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Mar 8, 2024</td>
-                                    <td>Boring Meeting</td> 
-                                    <td>Booked</td>
-                                    <td>Host</td>
-                                    <td><a href="meeting3.html" class="btn btn-primary disabled">View Meeting</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </nav>
-                </div>
-                
+                <div class="p-2 col-6 flex-grow-1">
+                    <h3>My Meetings</h3>
+                    <div class="card spacing">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date & Time</th>
+                                        <th scope="col">Meeting Title</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Feb 29, 2024</td>
+                                        <td>Graphic Design is Our Passion</td> 
+                                        <td>Pending</td>
+                                        <td>Host</td>
+                                        <td><a href="?command=hostMain" class="btn btn-primary">View Meeting</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mar 5, 2024</td>
+                                        <td>Transitional Product Meeting</td> 
+                                        <td>Pending</td>
+                                        <td>Member</td>
+                                        <td><a href="meeting2.html" class="btn btn-primary disabled">View Meeting</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mar 8, 2024</td>
+                                        <td>Boring Meeting</td> 
+                                        <td>Booked</td>
+                                        <td>Host</td>
+                                        <td><a href="meeting3.html" class="btn btn-primary disabled">View Meeting</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                    </div>
                 </div>
 
-            </div>
-            <div class="p-2 col-xl flex-grow-1 right-column">
-                <h3>Edit Availabilities:</h3>
-                <a href="?command=memberMain" class="btn btn-primary">Edit</a>
+                <div class="p-2 col-6 flex-grow-1">
+                    <h3>Edit Availabilities:</h3>
+                    <a href="?command=memberMain" class="btn btn-primary">Edit</a>
+                </div>
             </div>
         </div>
     
