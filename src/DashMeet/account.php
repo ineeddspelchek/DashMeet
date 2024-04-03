@@ -29,18 +29,9 @@
 
         <div class="container">
             <h1>Dashboard</h1>            
-            <div class="d-flex flex-row flex-fill flex-wrap align-items-stretch column-area">
+            <div class="d-flex flex-row flex-wrap align-items-stretch column-area">
 
-                <div class="offcanvas-xl offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
-                    <div class="offcanvas-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasLeft" aria-label="Close"></button>
-                        <h5 class="offcanvas-title" id="offcanvasLeftLabel">Edit Profile</h5>
-                    </div>
-                    <div class="p-2 d-xl-none offcanvas-body">
-                    </div>
-                </div>
-
-                <div class="p-2 col-6 flex-grow-1"> 
+                <div class="p-2 flex-fill"> 
                     <h3>
                         Edit Profile:
                     </h3>
@@ -63,7 +54,7 @@
                         </div>
                 </div>
 
-                <div class="p-2 col-6 flex-grow-1">
+                <div class="p-2 flex-fill">
                     <h3>My Meetings</h3>
                     <div class="card spacing">
                             <table class="table">
@@ -112,7 +103,13 @@
                     </div>
                 </div>
 
-                <div class="p-2 col-6 flex-grow-1">
+                <div class="p-2 flex-fill">
+                    <h3>My Calendars:</h3>
+                    <div class="card spacing">
+                    </div>
+                </div>
+
+                <div class="p-2 flex-fill">
                     <h3>Edit Availabilities:</h3>
                     <a href="?command=memberMain" class="btn btn-primary">Edit</a>
                 </div>
