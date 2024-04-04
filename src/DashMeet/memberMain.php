@@ -7,7 +7,6 @@
     https://github.com/orgs/twbs/discussions/36626
     https://www.w3schools.com/tags/tag_textarea.asp
     https://stackoverflow.com/questions/14967421/css-calc-not-working
-
 -->
 
 <!DOCTYPE html>
