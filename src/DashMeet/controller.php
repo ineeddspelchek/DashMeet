@@ -126,7 +126,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/register.php");
+        include("/students/han5jn/students/han5jn/DashMeet/register.php");
     }
 
 
@@ -140,7 +140,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/welcome.php");
+        include("/students/han5jn/students/han5jn/DashMeet/welcome.php");
     }
 
     public function account() {
@@ -155,7 +155,7 @@ class controller {
             $res = $this->db->query("delete from calendars where id = $1 AND useremail = $2;", $_POST["deleteCalId"], $email);
         }
 
-        include("/opt/src/DashMeet/account.php");
+        include("/students/han5jn/students/han5jn/DashMeet/account.php");
     }
 
     public function import() {
@@ -165,7 +165,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/import.php");
+        include("/students/han5jn/students/han5jn/DashMeet/import.php");
     }
 
     public function getJSON() {
@@ -176,7 +176,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/getJSON.php");
+        include("/students/han5jn/students/han5jn/DashMeet/getJSON.php");
     }
     public function viewEvents() {
         $message = "";
@@ -186,7 +186,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/viewEvents.php");
+        include("/students/han5jn/students/han5jn/DashMeet/viewEvents.php");
     }
 
     public function hostMain() {
@@ -196,7 +196,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/hostMain.php");
+        include("/students/han5jn/students/han5jn/DashMeet/hostMain.php");
     }
 
     public function memberMain() {
@@ -206,7 +206,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/memberMain.php");
+        include("/students/han5jn/students/han5jn/DashMeet/memberMain.php");
     }
 
 }
