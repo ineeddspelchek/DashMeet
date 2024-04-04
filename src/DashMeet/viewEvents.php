@@ -19,7 +19,7 @@
     <?php include("header.php"); ?>
     <div style="padding-left:10px; padding-top:10px">
         <form action="?command=account" method="post" style="margin-top:10px; margin-bottom:10px">
-            <a href="?command=welcome" class="btn btn-danger">Back</a>
+            <a href="?command=account" class="btn btn-danger">Back</a>
         </form>
         <?php
 
