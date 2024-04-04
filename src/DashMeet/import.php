@@ -55,11 +55,11 @@
         }
 
         if(preg_match("/\nDTEND:.*\n/", $inp, $endReg)) {
-            $end = $startReg[0];
+            $end = $endReg[0];
             $out .= "\"end\": \"" . trim(explode(":", $end)[1]) . "\",";
         }
         elseif(preg_match("/\nDTEND;.*\n/", $inp, $endReg)) {
-            $end = $startReg[0];
+            $end = $endReg[0];
             $out .= "\"end\": \"" . trim(explode(":", $end)[1]) . "\",";
         }
 
