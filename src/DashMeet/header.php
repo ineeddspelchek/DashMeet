@@ -1,4 +1,7 @@
 <header>
+    <?php 
+        // By Henry Newton
+    ?>
     <nav class="navbar navbar-light">
         <a class="navbar-brand" href="?command=hostMain">DashMeet</a>
         <form class="form-inline">

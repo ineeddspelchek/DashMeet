@@ -1,6 +1,6 @@
 <?php
 // By Sean Katauskas, Henry Newton
-// https://cs4640.cs.virginia.edu/han5jn/DashMeet
+// https://cs4640.cs.virginia.edu/han5jn/
        
 // Licenses for UI Elements
 // https://github.com/microsoft/vscode-codicons/blob/main/LICENSE 

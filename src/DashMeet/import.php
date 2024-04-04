@@ -2,6 +2,8 @@
     // Sources:
     // https://stackoverflow.com/questions/4064444/returning-json-from-a-php-script
     // https://icalendar.org/
+    
+    // By Henry Newton
 
     $importStr = file_get_contents($_FILES["import"]["tmp_name"], true);
     $explodedStr = explode("BEGIN:VEVENT", $importStr);
