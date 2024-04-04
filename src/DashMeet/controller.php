@@ -143,6 +143,11 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
+
+        if(isset($_POST["deleteCalId"])) {
+            $res = $this->db->query("delete from calendars where id = $1 AND useremail = $2;", $_POST["deleteCalId"], $email);
+        }
+
         include("/opt/src/DashMeet/account.php");
     }
 

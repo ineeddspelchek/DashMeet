@@ -4,7 +4,7 @@
   <meta charset="UTF-8">  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="CS4640 Spring 2024">
-  <meta name="description" content="Our Front-Controller Trivia Game">  
+  <meta name="description" content="">  
   <title>PHP Form Example - Trivia</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"  crossorigin="anonymous">       
 </head>
@@ -36,7 +36,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Register</button>
-                    <a href="?command=welcome" class="btn btn-secondary">Login</a>
+                    <a href="?command=welcome" class="btn btn-danger">Back</a>
                 </form>
                 </div>
             </div>

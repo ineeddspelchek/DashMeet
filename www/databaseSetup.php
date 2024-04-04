@@ -15,10 +15,21 @@
         echo "An error occurred connecting to the database";
     }
 
+    $res  = pg_query($dbHandle, "drop sequence if exists calendars_seq;");
+    $res  = pg_query($dbHandle, "create sequence calendars_seq;");
+
     $res  = pg_query($dbHandle, "drop table if exists users;");
+    $res  = pg_query($dbHandle, "drop table if exists calendars;");
+
 
     $res  = pg_query($dbHandle, "create table users (
             email  text primary key,
             fullname text,
             password    text
+    );");
+
+    $res  = pg_query($dbHandle, "create table calendars (
+        id  int primary key default nextval('calendars_seq'),
+        name text,
+        useremail  text references users(email)
     );");

@@ -1,5 +1,7 @@
 <!-- Sources: 
     https://www.w3schools.com/php/php_file_upload.asp 
+    https://stackoverflow.com/questions/12796324/is-there-any-php-function-for-open-page-in-new-tab
+
 -->
 
 <!DOCTYPE html>
@@ -12,7 +14,7 @@
         <title>Account</title>
         <meta name="author" content="Sean Katauskas">
         <meta name="description" content="QuickMeet Scheduler">
-        <meta name="keywords" content="QuickMeet">     
+        <meta name="keywords" content="QuickMeet">
          
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet/less" type="text/css" href="/styles/main.less" />
@@ -105,12 +107,26 @@
                 <div class="p-2 col-12 flex-fill">
                     <h3>My Calendars:</h3>
                     <div class="card spacing">
-                        <form action="?command=import" method="post" enctype="multipart/form-data">
+                        <form action="?command=import" method="post" enctype="multipart/form-data" target="_blank">
                             <div class="input-group mb-3">
                                 <button class="btn btn-primary" type="submit" name="submitImport" id="submitImport">Import New Calendar</button>
                                 <input type="file" class="form-control" name="import" id="import">
-                            </div>
+                        </div>
                         </form>
+                        <?php 
+                            $res = $this->db->query("SELECT name, id FROM calendars;");
+                            foreach ($res as $i => $cal) {
+                                if($res[$i]["name"] !== NULL) {
+                                    echo "<form action=\"?command=account\" method=\"POST\">";
+                                    echo "<div class=\"row\">";
+                                    echo "<div class=\"col col-auto\"> <button class=\"btn btn-danger\" type=\"submit\" name=\"deleteCal\">Delete</button> </div>";
+                                    echo "<div class=\"col\">" . $res[$i]["name"] . "</div>";
+                                    echo "<input type=\"hidden\" name=\"deleteCalId\" value=\"" . $res[$i]["id"] . "\">";
+                                    echo "</div>";
+                                    echo "</form>";
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
 

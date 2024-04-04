@@ -6,21 +6,23 @@
     $importStr = file_get_contents($_FILES["import"]["tmp_name"], true);
     $explodedStr = explode("BEGIN:VEVENT", $importStr);
 
-    $outJSON = open($explodedStr);
+    $outJSON = start($explodedStr);
     for ($i=1; $i < count($explodedStr); $i++) { 
         $outJSON .= addEvent($explodedStr[$i]);
     }
     $outJSON = rtrim($outJSON, ","); #remove comma added by last event
     $outJSON .= close();
 
+    $JSONArr = (array) json_decode($outJSON); 
 
     header('Content-Type: application/json; charset=utf-8');
     echo $outJSON;
+    $res = $this->db->query("insert into calendars (name, useremail) values ($1, $2);",
+                        $JSONArr["name"], $email);
 
 
 
-
-    function open($explodedStr) {
+    function start($explodedStr) {
         $element0 = $explodedStr[0];
         $out = "{";
         preg_match("/\nX-WR-CALNAME:.*\n/", $element0, $nameReg);
