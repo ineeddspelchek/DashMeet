@@ -3,3 +3,4 @@
 
 cgi-bin
 Dockerfile
+src/DashMeet/Config.php
