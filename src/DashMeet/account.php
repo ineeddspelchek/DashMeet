@@ -118,17 +118,24 @@
                             foreach ($res as $i => $cal) {
                                 if($res[$i]["name"] !== NULL) {
                                     echo "<div class=\"row\">";
-                                    echo "<form action=\"?command=account\" method=\"POST\">";
-                                    echo "<div class=\"row\">";
-                                    echo "<div class=\"col col-auto\"> <button class=\"btn btn-danger\" type=\"submit\" name=\"deleteCal\">Delete</button> </div>";
-                                    echo "<div class=\"col\">" . $res[$i]["name"] . "</div>";
-                                    echo "<input type=\"hidden\" name=\"deleteCalId\" value=\"" . $res[$i]["id"] . "\">";
-                                    echo "</div>";
-                                    echo "</form>";
-                                    echo "<form action=\"?command=getJSON\" method=\"POST\" target=\"_blank\">";
-                                    echo "<div class=\"col col-auto\"> <button class=\"btn btn-secondary\" type=\"submit\" name=\"getJSON\">Get JSON</button> </div>";
-                                    echo "<input type=\"hidden\" name=\"getID\" value=\"" . $res[$i]["id"] . "\">";
-                                    echo "</form>";
+                                        echo "<form action=\"?command=account\" method=\"POST\">";
+                                            echo "<div class=\"row\">";
+                                                echo "<div class=\"col col-auto\"> <button class=\"btn btn-danger\" type=\"submit\" name=\"deleteCal\">Delete</button> </div>";
+                                                echo "<div class=\"col\">" . $res[$i]["name"] . "</div>";
+                                                echo "<input type=\"hidden\" name=\"deleteCalId\" value=\"" . $res[$i]["id"] . "\">";
+                                            echo "</div>";
+                                        echo "</form>";
+
+                                        echo "<form action=\"?command=viewEvents\" method=\"POST\">";
+                                            echo "<div class=\"col col-auto\"> <button class=\"btn btn-primary\" type=\"submit\" name=\"viewEvents\">View All Events</button> </div>";
+                                            echo "<input type=\"hidden\" name=\"getID\" value=\"" . $res[$i]["id"] . "\">";
+                                        echo "</form>";
+
+
+                                        echo "<form action=\"?command=getJSON\" method=\"POST\" target=\"_blank\">";
+                                            echo "<div class=\"col col-auto\"> <button class=\"btn btn-secondary\" type=\"submit\" name=\"getJSON\">Get JSON</button> </div>";
+                                            echo "<input type=\"hidden\" name=\"getID\" value=\"" . $res[$i]["id"] . "\">";
+                                        echo "</form>";
                                     echo "</div>";
                                 }
                             }

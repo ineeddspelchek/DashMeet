@@ -30,6 +30,9 @@ class controller {
             case "getJSON":
                 $this->getJSON();
                 break;
+            case "viewEvents":
+                $this->viewEvents();
+                break;
             case "hostMain":
                 $this->hostMain();
                 break;
@@ -173,6 +176,16 @@ class controller {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
         include("/opt/src/DashMeet/getJSON.php");
+    }
+    public function viewEvents() {
+        $message = "";
+        $email = $_SESSION["email"];
+        $id = $_POST["getID"];
+
+        if (!empty($this->errorMessage)) {
+            $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
+        }
+        include("/opt/src/DashMeet/viewEvents.php");
     }
 
     public function hostMain() {
