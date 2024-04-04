@@ -15,12 +15,13 @@
 
     $JSONArr = (array) json_decode($outJSON); 
 
-    header('Content-Type: application/json; charset=utf-8');
-    echo $outJSON;
-    $res = $this->db->query("insert into calendars (name, useremail) values ($1, $2);",
-                        $JSONArr["name"], $email);
+    //header('Content-Type: application/json; charset=utf-8');
+    //echo $outJSON;
+    $res = $this->db->query("insert into calendars (name, useremail, json) values ($1, $2, $3);",
+                        $JSONArr["name"], $email, $outJSON);
 
-
+    header("Location: ?command=account");
+    return;
 
     function start($explodedStr) {
         $element0 = $explodedStr[0];

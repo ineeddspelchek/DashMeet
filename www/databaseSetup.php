@@ -31,5 +31,6 @@
     $res  = pg_query($dbHandle, "create table calendars (
         id  int primary key default nextval('calendars_seq'),
         name text,
-        useremail  text references users(email)
+        useremail  text references users(email),
+        json text
     );");

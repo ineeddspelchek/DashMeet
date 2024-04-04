@@ -17,7 +17,7 @@
         <meta name="keywords" content="QuickMeet">
          
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <link rel="stylesheet/less" type="text/css" href="/styles/main.less" />
+        <link rel="stylesheet/less" type="text/css" href="/styles/main.less"/>
         <script src="/less.js" type="text/javascript"></script>
         
     </head>
@@ -107,16 +107,17 @@
                 <div class="p-2 col-12 flex-fill">
                     <h3>My Calendars:</h3>
                     <div class="card spacing">
-                        <form action="?command=import" method="post" enctype="multipart/form-data" target="_blank">
+                        <form action="?command=import" method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
                                 <button class="btn btn-primary" type="submit" name="submitImport" id="submitImport">Import New Calendar</button>
-                                <input type="file" class="form-control" name="import" id="import">
+                                <input type="file" class="form-control" name="import" id="import" required>
                         </div>
                         </form>
                         <?php 
                             $res = $this->db->query("SELECT name, id FROM calendars;");
                             foreach ($res as $i => $cal) {
                                 if($res[$i]["name"] !== NULL) {
+                                    echo "<div class=\"row\">";
                                     echo "<form action=\"?command=account\" method=\"POST\">";
                                     echo "<div class=\"row\">";
                                     echo "<div class=\"col col-auto\"> <button class=\"btn btn-danger\" type=\"submit\" name=\"deleteCal\">Delete</button> </div>";
@@ -124,6 +125,11 @@
                                     echo "<input type=\"hidden\" name=\"deleteCalId\" value=\"" . $res[$i]["id"] . "\">";
                                     echo "</div>";
                                     echo "</form>";
+                                    echo "<form action=\"?command=getJSON\" method=\"POST\" target=\"_blank\">";
+                                    echo "<div class=\"col col-auto\"> <button class=\"btn btn-secondary\" type=\"submit\" name=\"getJSON\">Get JSON</button> </div>";
+                                    echo "<input type=\"hidden\" name=\"getID\" value=\"" . $res[$i]["id"] . "\">";
+                                    echo "</form>";
+                                    echo "</div>";
                                 }
                             }
                         ?>
