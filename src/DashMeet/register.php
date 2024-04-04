@@ -22,7 +22,10 @@
                 <div class="col-xs-12">
                 <form action="?command=createAccount" method="post">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
+                        <label for="fullname" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname">
+                    </div>
+                    <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>

@@ -39,20 +39,16 @@
                         Edit Profile:
                     </h3>
                         <div class="card">
-                            <form>
+                            <form action="?command=changeProfile" method="post">
                                 <div class="spacing">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                                </div>
-                                <div class="spacing">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your name">
                                 </div>
                                 <div class="spacing">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="text" class="form-control" id="password" placeholder="Change your password">
+                                    <input type="text" class="form-control" id="password" name="password" placeholder="Change your password">
                                 </div>
-                                <button type="submit" class="btn btn-primary" disabled>Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </form>
                         </div>
                 </div>
