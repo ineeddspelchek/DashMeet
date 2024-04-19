@@ -13,17 +13,24 @@
 
         <title>Account</title>
         <meta name="author" content="Sean Katauskas">
-        <meta name="description" content="QuickMeet Scheduler">
-        <meta name="keywords" content="QuickMeet">
+        <meta name="description" content="DashMeet Scheduler">
+        <meta name="keywords" content="DashMeet">
          
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet/less" type="text/css" href="styles/main.less"/>
         <script src="less.js" type="text/javascript"></script>
         
+        <script>
+            function load() {
+            }
+
+            function save() {
+            }
+        </script>
+
     </head>
-    <body>
+    <body onload="load();" onunload="save();">
         <?php include("header.php"); ?>
-        
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
@@ -100,6 +107,7 @@
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                 </ul>
+                                <button class="btn btn-primary">Start New Meeting</button>
                             </nav>
                     </div>
                 </div>
@@ -114,7 +122,7 @@
                         </div>
                         </form>
                         <?php 
-                            $res = $this->db->query("SELECT name, id FROM calendars where useremail=$1;",$email);
+                            $res = $this->db->query("SELECT name, id FROM calendars where userID=$1;",$userID);
                             foreach ($res as $i => $cal) {
                                 if($res[$i]["name"] !== NULL) {
                                     if($res[$i]["name"] !== NULL) {

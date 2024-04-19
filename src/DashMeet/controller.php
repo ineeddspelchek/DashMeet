@@ -20,7 +20,7 @@ class controller {
 
         if (!isset($_SESSION["email"]) && $command != "login" && $command != "register" && $command != "createAccount")
             $command = "welcome";
-
+            
         switch($command) {
             case "account":
                 $this->account();
@@ -63,12 +63,16 @@ class controller {
     public function login() {
         if(isset($_POST["email"]) && !empty($_POST["email"]) &&
             isset($_POST["password"]) && !empty($_POST["password"])) {
-                $res = $this->db->query("select * from users where email = $1;", $_POST["email"]);
+                $res = $this->db->query("select * from ourUsers where email = $1;", $_POST["email"]);
                 if (empty($res)) {
                     $this->errorMessage = "Email is not associated with an account.";
                 } else {
                     if (password_verify($_POST["password"], $res[0]["password"])) {
                         $_SESSION["email"] = $res[0]["email"];
+                        
+                        $res = $this->db->query("select id from ourUsers where email = $1;",$_POST["email"]);
+                        $_SESSION["userID"] = intval($res[0]["id"]);
+
                         header("Location: ?command=account");
                         return;
                     } else {
@@ -86,15 +90,18 @@ class controller {
         isset($_POST["password"]) && !empty($_POST["password"]) &&
         isset($_POST["fullname"]) && !empty($_POST["fullname"])
         ) {
-            $res = $this->db->query("select * from users where email = $1;", $_POST["email"]);
+            $res = $this->db->query("select * from ourUsers where email = $1;", $_POST["email"]);
             if (empty($res)) {
-                $this->db->query("insert into users (email, fullname, password) values ($1, $2, $3);",
+                $this->db->query("insert into ourUsers (email, fullname, password) values ($1, $2, $3);",
                     $_POST["email"], $_POST["fullname"], password_hash($_POST["password"], PASSWORD_DEFAULT));
+                
+                $res = $this->db->query("select id from ourUsers where email = $1;",$_POST["email"]);
+                $_SESSION["userID"] = intval($res[0]["id"]);
                 $_SESSION["email"] = $_POST["email"];
                 header("Location: ?command=account");
                 return;
             } else {
-                    $this->errorMessage = "An account is already created with this email.";
+                $this->errorMessage = "An account is already created with this email.";
             }
         } else {
             $this->errorMessage = "Full name, email, and password are required.";
@@ -103,17 +110,18 @@ class controller {
     }
 
     public function changeProfile() {
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
         $password = $_SESSION["password"];
         $fullname = $_SESSION["fullname"];
         if(isset($_POST["password"]) && !empty($_POST["password"])) {
-         $res = $this->db->query("select * from users where email = $1;", $email);
-            $this->db->query("update users set password = $1 where email = $2;",
+         $res = $this->db->query("select * from ourUsers where email = $1;", $email);
+            $this->db->query("update ourUsers set password = $1 where email = $2;",
                 password_hash($_POST["password"], PASSWORD_DEFAULT), $email);
         }
         if (isset($_POST["fullname"]) && !empty($_POST["fullname"])){
-            $res = $this->db->query("select * from users where email = $1;", $email);
-            $this->db->query("update users set fullname = $1 where email = $2;",
+            $res = $this->db->query("select * from ourUsers where email = $1;", $email);
+            $this->db->query("update ourUsers set fullname = $1 where email = $2;",
                              $_POST["fullname"], $email);
         }
         header("Location: ?command=account");
@@ -145,6 +153,7 @@ class controller {
 
     public function account() {
         $message = "";
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
 
         if (!empty($this->errorMessage)) {
@@ -152,7 +161,7 @@ class controller {
         }
 
         if(isset($_POST["deleteCalId"])) {
-            $res = $this->db->query("delete from calendars where id = $1 AND useremail = $2;", $_POST["deleteCalId"], $email);
+            $res = $this->db->query("delete from calendars where id = $1 AND userID = $2;", $_POST["deleteCalId"], $userID);
         }
 
         include("/opt/src/DashMeet/account.php");
@@ -160,6 +169,7 @@ class controller {
 
     public function import() {
         $message = "";
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
 
         if (!empty($this->errorMessage)) {
@@ -170,6 +180,7 @@ class controller {
 
     public function getJSON() {
         $message = "";
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
         $id = $_POST["getID"];
 
@@ -180,6 +191,7 @@ class controller {
     }
     public function viewEvents() {
         $message = "";
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
         $id = $_POST["getID"];
 
@@ -191,6 +203,7 @@ class controller {
 
     public function hostMain() {
         $message = "";
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
 
         if (!empty($this->errorMessage)) {
@@ -201,6 +214,7 @@ class controller {
 
     public function memberMain() {
         $message = "";
+        $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
 
         if (!empty($this->errorMessage)) {

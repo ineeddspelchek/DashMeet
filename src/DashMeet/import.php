@@ -19,9 +19,8 @@
 
     //header('Content-Type: application/json; charset=utf-8');
     //echo $outJSON;
-    $res = $this->db->query("insert into calendars (name, useremail, json) values ($1, $2, $3);",
-                        $JSONArr["name"], $email, $outJSON);
-
+    $res = $this->db->query("insert into calendars (name, userID, json) values ($1, $2, $3);",
+                        $JSONArr["name"], $userID, $outJSON);
     header("Location: ?command=account");
     return;
 

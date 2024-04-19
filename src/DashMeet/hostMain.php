@@ -17,17 +17,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-        <title>QuickMeet - Graphic Design is Our Passion</title>
+        <title>DashMeet - Graphic Design is Our Passion</title>
         <meta name="author" content="Henry Newton">
-        <meta name="description" content="QuickMeet Scheduler">
-        <meta name="keywords" content="QuickMeet">    
+        <meta name="description" content="DashMeet Scheduler">
+        <meta name="keywords" content="DashMeet">    
          
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet/less" type="text/css" href="styles/main.less" />
         <script src="less.js" type="text/javascript"></script>
         
+        <script>
+            function load() {
+            }
+
+            function save() {
+            }
+        </script>
+
     </head>
-    <body>
+    <body onload="load();" onunload="save();">
         <?php include("header.php"); ?>
 
         <div class="row justify-content-between subheader">
@@ -80,8 +88,8 @@
                         </a>    
                         <a class="collapse btn btn-link collapse-button collapse-button-active collapse-1" data-bs-toggle="collapse" href=".collapse-1" role="button" aria-expanded="false">
                             <img src="images/left-arrow.png" alt="active dropdown icon">
-                        </a>      
-                        <p>My Calendar</p>
+                        </a>
+                        <p>My Calendars</p>
                     </div>        
                     <div class="collapse collapse-body collapse-1">
                         <div class="card card-body">

@@ -6,7 +6,10 @@
 // https://github.com/microsoft/vscode-codicons/blob/main/LICENSE 
 // https://github.com/Templarian/MaterialDesign/blob/master/LICENSE 
 
-// DEBUGGING ONLY! Show all errors.
+// SOURCES:
+// https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql
+
+// DEBUGGING ONLY! Show all errors. TODO: REMOVE
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
