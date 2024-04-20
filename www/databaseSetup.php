@@ -1,4 +1,11 @@
 <?php
+    // Sources:
+    // https://dba.stackexchange.com/questions/65289/multiple-primary-keys-in-postgresql
+
+
+    // DEBUGGING ONLY! Show all errors. TODO: REMOVE
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
 
     // Note that these are for the local Docker container
     $host = "db";
@@ -15,34 +22,42 @@
         echo "An error occurred connecting to the database";
     }
 
-    $res  = pg_query($dbHandle, "drop sequence if exists users_seq;");
+    $res  = pg_query($dbHandle, "drop sequence if exists users_seq cascade;");
     $res  = pg_query($dbHandle, "create sequence users_seq;");
 
-    $res  = pg_query($dbHandle, "drop sequence if exists calendars_seq;");
+    $res  = pg_query($dbHandle, "drop sequence if exists calendars_seq cascade;");
     $res  = pg_query($dbHandle, "create sequence calendars_seq;");
 
-    $res  = pg_query($dbHandle, "drop sequence if exists subcalendars_seq;");
+    $res  = pg_query($dbHandle, "drop sequence if exists subcalendars_seq cascade;");
     $res  = pg_query($dbHandle, "create sequence subcalendars_seq;");
 
-    $res  = pg_query($dbHandle, "drop sequence if exists meetings_seq;");
+    $res  = pg_query($dbHandle, "drop sequence if exists meetings_seq cascade;");
     $res  = pg_query($dbHandle, "create sequence meetings_seq;");
 
 
-    $res  = pg_query($dbHandle, "drop table if exists ourUsers;");
-    $res  = pg_query($dbHandle, "drop table if exists calendars;");
-    $res  = pg_query($dbHandle, "drop table if exists subcalendars;");
-    $res  = pg_query($dbHandle, "drop table if exists events;");
-    $res  = pg_query($dbHandle, "drop table if exists meetings;");
+    $res  = pg_query($dbHandle, "drop table if exists ourUsers cascade;");
+    $res  = pg_query($dbHandle, "drop table if exists meetings cascade;");
+    $res  = pg_query($dbHandle, "drop table if exists calendars cascade;");
+    $res  = pg_query($dbHandle, "drop table if exists subcalendars cascade;");
+    $res  = pg_query($dbHandle, "drop table if exists events cascade;");
 
-    $res  = pg_query($dbHandle, "drop table if exists membersOf;");
+    $res  = pg_query($dbHandle, "drop table if exists membersOf cascade;");
 
-    print("------------------");
 
     $res  = pg_query($dbHandle, "create table ourUsers (
         id int primary key default nextval('users_seq'),
         email text,
         fullname text,
         password text
+    );");
+    assert($res !== false);
+
+    $res  = pg_query($dbHandle, "create table meetings (
+        id int primary key default nextval('meetings_seq'),
+        name text,
+        hostID int,
+        start timestamp,
+        stop timestamp
     );");
     assert($res !== false);
 
@@ -56,33 +71,27 @@
 
     $res  = pg_query($dbHandle, "create table subcalendars (
         id int primary key default nextval('subcalendars_seq'),
-        supercalendarID references calendars(id),
-        meetingID references meetings(id)
+        supercalendarID int references calendars(id),
+        meetingID int references meetings(id)
     );");
     assert($res !== false);
 
     $res  = pg_query($dbHandle, "create table events (
         id int primary key default nextval('subcalendars_seq'),
-        calendarID references calendars(id),
+        calendarID int references calendars(id),
         name text,
         repeats text,
         start timestamp,
-        end timestamp
+        stop timestamp
     );");
     assert($res !== false);
 
-    $res  = pg_query($dbHandle, "create table meetings (
-        id int primary key default nextval('meetings_seq'),
-        name text,
-        hostID int,
-        start timestamp,
-        end timestamp
-    );");
-    assert($res !== false);
+
 
 
     $res  = pg_query($dbHandle, "create table membersOf (
-        meetingID int primary key references meetings(id),
-        memberID int primary key references users(id)
+        meetingID int references meetings(id),
+        memberID int references users(id),
+        primary key (meetingID, memberID)
     );");
     assert($res !== false);

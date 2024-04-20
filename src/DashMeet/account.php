@@ -17,14 +17,19 @@
         <meta name="keywords" content="DashMeet">
          
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <link rel="stylesheet/less" type="text/css" href="styles/main.less"/>
+        <link rel="stylesheet/less" type="text/css" href="styles/main.less?ts=\<\?=filemtime('style.css')?"/>
         <script src="less.js" type="text/javascript"></script>
+        <script src="jquery.js" type="text/javascript"></script>
         
         <script>
             function load() {
             }
 
             function save() {
+            }
+
+            function newMeeting() {
+                document.location.replace('?command=hostMain');
             }
         </script>
 
@@ -42,24 +47,23 @@
         <div class="container">
             <h1>Dashboard</h1>            
             <div class="d-flex flex-row flex-wrap align-items-stretch column-area">
-
                 <div class="p-2 flex-fill"> 
                     <h3>
                         Edit Profile:
                     </h3>
-                        <div class="card">
-                            <form action="?command=changeProfile" method="post">
-                                <div class="spacing">
-                                    <label for="name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your name">
-                                </div>
-                                <div class="spacing">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="text" class="form-control" id="password" name="password" placeholder="Change your password">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </form>
-                        </div>
+                    <div class="card">
+                        <form action="?command=changeProfile" method="post">
+                            <div class="spacing">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your name">
+                            </div>
+                            <div class="spacing">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="text" class="form-control" id="password" name="password" placeholder="Change your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="p-2 flex-fill">
@@ -68,14 +72,20 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Date & Time</th>
                                         <th scope="col">Meeting Title</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">End Date</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">View</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                        $res = $this->db->query("select * from meetings where hostID=$1",
+                                        $userID);
+                                        var_dump($res);
+                                    ?>
                                     <tr>
                                         <td>Feb 29, 2024</td>
                                         <td>Graphic Design is Our Passion</td> 
@@ -107,7 +117,7 @@
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                 </ul>
-                                <button class="btn btn-primary">Start New Meeting</button>
+                                <button class="btn btn-primary" onclick="newMeeting()">Start New Meeting</button>
                             </nav>
                     </div>
                 </div>
