@@ -8,7 +8,7 @@
     https://www.w3schools.com/tags/tag_textarea.asp
     https://stackoverflow.com/questions/14967421/css-calc-not-working
     https://developer.mozilla.org/en-US/docs/Web/JavaScript/
-
+    
 -->
 
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="d-flex flex-column modal-body">
-                    <input type="text" readonly="readonly" value="https://quickmeet.com/rq285jdn">
+                    <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$meetingID?>">
                     <img class="copy-icon" src="images/copy.png" alt="copy icon">
 
                     <div class="d-flex align-items-center btn btn-light gmail">
@@ -74,6 +74,7 @@
               </div>
             </div>
         </div>
+
 
         <div class="subbody">
             <button class="p-2 d-xl-none overflow-visible btn sidemenu-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft">≡</button> <!-- only show on mobile -->
@@ -164,102 +165,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>12 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>1 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>2 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>3 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>4 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>5 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>6 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>7 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>8 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>9 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>10 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>11 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>12 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>1 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>2 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>3 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>4 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>5 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>6 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>7 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>8 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>9 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>10 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>11 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
+                            <?php
+                            echo "<tr>";
+                            echo "<th>" . 12 . " AM</th>";
+                            echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                            echo "</tr>";
+                            for ($i=1; $i < 12; $i++) {
+                                echo "<tr>";
+                                echo "<th>" . $i . " AM</th>";
+                                echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                                echo "</tr>";
+                            }
+                            echo "<tr>";
+                            echo "<th>" . 12 . " PM</th>";
+                            echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                            echo "</tr>";
+                            for ($i=1; $i < 12; $i++) {
+                                echo "<tr>";
+                                echo "<th>" . $i . " PM</th>";
+                                echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -268,7 +195,7 @@
                 <div class="p-2 flex-shrink-1 right-column">
                     <p class="host-title">Host:</p>
                     <p class="host-body">
-                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="themainjane@slay.in">Jane Doe</a>
+                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="<?=$email?>"><?=$name?></a>
                     </p>
 
                     <p class="member-title">Joined Attendees:</p>

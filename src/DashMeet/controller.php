@@ -1,5 +1,7 @@
 <?php
 // By Henry Newton
+// Sources:
+// https://stackoverflow.com/questions/2944297/postgresql-function-for-last-inserted-id
 
 class controller {
     private $db;
@@ -70,8 +72,9 @@ class controller {
                     if (password_verify($_POST["password"], $res[0]["password"])) {
                         $_SESSION["email"] = $res[0]["email"];
                         
-                        $res = $this->db->query("select id from ourUsers where email = $1;",$_POST["email"]);
+                        $res = $this->db->query("select * from ourUsers where email = $1;",$_POST["email"]);
                         $_SESSION["userID"] = intval($res[0]["id"]);
+                        $_SESSION["name"] = $res[0]["fullname"];
 
                         header("Location: ?command=account");
                         return;
@@ -98,6 +101,7 @@ class controller {
                 $res = $this->db->query("select id from ourUsers where email = $1;",$_POST["email"]);
                 $_SESSION["userID"] = intval($res[0]["id"]);
                 $_SESSION["email"] = $_POST["email"];
+                $_SESSION["name"] = $_POST["fullname"];
                 header("Location: ?command=account");
                 return;
             } else {
@@ -123,6 +127,7 @@ class controller {
             $res = $this->db->query("select * from ourUsers where email = $1;", $email);
             $this->db->query("update ourUsers set fullname = $1 where email = $2;",
                              $_POST["fullname"], $email);
+            $_SESSION["name"] = $_POST["fullname"];
         }
         header("Location: ?command=account");
         return;
@@ -148,6 +153,11 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
+
+        if(isset($_GET["joinID"])) {
+            $_SESSION["joinID"] = intval($_GET["joinID"]);
+        }
+
         include("/opt/src/DashMeet/welcome.php");
     }
 
@@ -162,6 +172,27 @@ class controller {
 
         if(isset($_POST["deleteCalId"])) {
             $res = $this->db->query("delete from calendars where id = $1 AND userID = $2;", $_POST["deleteCalId"], $userID);
+        }
+
+        if(isset($_POST["delMeetingID"])) {
+            $res = $this->db->query("delete from meetings where id = $1 AND hostID = $2;", $_POST["delMeetingID"], $userID);
+        }
+
+        
+        if(isset($_POST["accept"]) and isset($_SESSION["joinID"])) {
+            $res = $this->db->query("insert into membersOf (meetingID, memberID) values ($1, $2);",
+                    $_SESSION["joinID"], $userID);
+            unset($_SESSION["joinID"]);
+            unset($_SESSION["meeting"]);
+        }
+        else if(isset($_POST["decline"])) {
+            unset($_SESSION["joinID"]);
+            unset($_SESSION["meeting"]);
+        }
+        else if(isset($_SESSION["joinID"])) {
+            $joinID = $_SESSION["joinID"];
+            $res = $this->db->query("select * from meetings join ourUsers on meetings.hostID=ourUsers.id where meetings.id=$1;", $joinID);
+            $_SESSION["meeting"] = $res[0];
         }
 
         include("/opt/src/DashMeet/account.php");
@@ -205,6 +236,20 @@ class controller {
         $message = "";
         $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
+        $name = $_SESSION["name"];
+
+        # creating new meeting
+        if(isset($_POST["meetingName"])) { 
+            $res = $this->db->query("insert into meetings (name, hostID) values ($1, $2) returning id;",
+                                    $_POST["meetingName"], $userID);
+            unset($_POST["meetingName"]);
+            $meetingID = intval($res[0]["id"]);
+        }
+
+        # viewing meeting that was already made
+        if(isset($_POST["meetingID"])) {
+            $meetingID = intval($_POST["meetingID"]);
+        }
 
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";

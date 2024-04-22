@@ -1,7 +1,10 @@
 <!-- Sources: 
     https://www.w3schools.com/php/php_file_upload.asp 
     https://stackoverflow.com/questions/12796324/is-there-any-php-function-for-open-page-in-new-tab
-
+    https://www.w3schools.com/jsref
+    https://stackoverflow.com/questions/10233550/launch-bootstrap-modal-on-page-load
+    https://stackoverflow.com/questions/3812526/conditional-statements-in-php-code-between-html-code
+    https://stackoverflow.com/questions/2680160/how-can-i-tell-which-button-was-clicked-in-a-php-form-submit
 -->
 
 <!DOCTYPE html>
@@ -23,13 +26,15 @@
         
         <script>
             function load() {
+                $('#joinModal').modal('show');
             }
 
             function save() {
             }
 
-            function newMeeting() {
-                document.location.replace('?command=hostMain');
+            function newMeetingContinue() {
+                //TODO: ADD VALIDATION (END > START DATE)
+                return true;
             }
         </script>
 
@@ -43,6 +48,57 @@
             </span>
         </div>
 
+        <div class="modal fade" id="newMeetingModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="shareModalLabel">New Meeting</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form action="?command=hostMain" method="post" id="newMeetingContinue">
+                    <div class="d-flex flex-column">
+                        Meeting Name:
+                        <input type="text" name="meetingName" required>
+                        Start Time:
+                        <input type="datetime-local" name="meetingStart" required>
+                        End Time:
+                        <input type="datetime-local" name="meetingStop" required>
+                        <button class="btn btn-primary">Continue</button>
+                        
+                    </div>
+                </form>
+                <script>
+                    $("#newMeetingContinue").on('submit', function(event) {
+                        event.preventDefault();
+                        if(newMeetingContinue())
+                            this.submit();
+                    });
+                </script>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <?php if(isset($joinID)) {?>
+            <div class="modal fade" id="joinModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="joinModalLabel">Invited to Meeting</h1>
+                    </div>
+                    <div class="d-flex flex-column modal-body">
+                        <p>Meeting Name: <?= $_SESSION["meeting"]["name"]?></p>
+                        <p>Host: <?= $_SESSION["meeting"]["fullname"]?> (<?= $_SESSION["meeting"]["email"]?>)</p>
+                        <form action="?command=account" method="post">
+                            <button type="submit" class="btn btn-primary" name="accept">Accept</button>
+                            <button type="submit" class="btn btn-danger" name="decline">Decline</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <?php } ?>
 
         <div class="container">
             <h1>Dashboard</h1>            
@@ -67,7 +123,7 @@
                 </div>
 
                 <div class="p-2 flex-fill">
-                    <h3>My Meetings</h3>
+                    <h3>My Hosted Meetings</h3>
                     <div class="card spacing">
                             <table class="table">
                                 <thead>
@@ -75,38 +131,35 @@
                                         <th scope="col">Meeting Title</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">View</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         $res = $this->db->query("select * from meetings where hostID=$1",
                                         $userID);
-                                        var_dump($res);
+                                        
+                                        foreach ($res as $key => $meeting) {
+                                            echo "<tr>";
+                                            echo "<td>" . $meeting["name"] . "</td>";
+                                            echo "<td>" . $meeting["start"] . "</td>";
+                                            echo "<td>" . $meeting["stop"] . "</td>";
+
+                                            echo "<td><div class=\"d-flex\">";
+
+                                            echo "<form action=\"?command=hostMain\" method=\"POST\" class=\"col col-auto me-auto\">";
+                                                echo "<div> <button class=\"btn btn-primary\" type=\"submit\" name=\"viewMeeting\">View</button> </div>";
+                                                echo "<input type=\"hidden\" name=\"meetingID\" value=\"" . $meeting["id"] . "\">";
+                                            echo "</form>";
+
+                                            echo "<form action=\"?command=account\" method=\"POST\" class=\"col col-auto me-auto\">";
+                                                echo "<div> <button class=\"btn btn-danger\" type=\"submit\" name=\"cancelMeeting\">Cancel</button> </div>";
+                                                echo "<input type=\"hidden\" name=\"delMeetingID\" value=\"" . $meeting["id"] . "\">";
+                                            echo "</form>";
+
+                                            echo "</div></td></tr>";
+                                        }
                                     ?>
-                                    <tr>
-                                        <td>Feb 29, 2024</td>
-                                        <td>Graphic Design is Our Passion</td> 
-                                        <td>Pending</td>
-                                        <td>Host</td>
-                                        <td><a href="?command=hostMain" class="btn btn-primary">View Meeting</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mar 5, 2024</td>
-                                        <td>Transitional Product Meeting</td> 
-                                        <td>Pending</td>
-                                        <td>Member</td>
-                                        <td><a href="meeting2.html" class="btn btn-primary disabled">View Meeting</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mar 8, 2024</td>
-                                        <td>Boring Meeting</td> 
-                                        <td>Booked</td>
-                                        <td>Host</td>
-                                        <td><a href="meeting3.html" class="btn btn-primary disabled">View Meeting</a></td>
-                                    </tr>
                                 </tbody>
                             </table>
                             <nav aria-label="Page navigation example">
@@ -117,7 +170,54 @@
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                 </ul>
-                                <button class="btn btn-primary" onclick="newMeeting()">Start New Meeting</button>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newMeetingModal">Start New Meeting</button>
+                            </nav>
+                    </div>
+                </div>
+
+                <div class="p-2 flex-fill">
+                    <h3>My Joined Meetings</h3>
+                    <div class="card spacing">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Meeting Title</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">End Date</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $res = $this->db->query("select * from meetings natural join membersOf where memberID=$1",
+                                        $userID);
+                                        
+                                        foreach ($res as $key => $meeting) {
+                                            echo "<tr>";
+                                            echo "<td>" . $meeting["name"] . "</td>";
+                                            echo "<td>" . $meeting["start"] . "</td>";
+                                            echo "<td>" . $meeting["stop"] . "</td>";
+
+                                            echo "<td><div class=\"d-flex\">";
+
+                                            echo "<form action=\"?command=memberMain\" method=\"POST\" class=\"col col-auto me-auto\">";
+                                                echo "<div> <button class=\"btn btn-primary\" type=\"submit\" name=\"viewMeeting\">View</button> </div>";
+                                                echo "<input type=\"hidden\" name=\"meetingID\" value=\"" . $meeting["id"] . "\">";
+                                            echo "</form>";
+
+                                            echo "</div></td></tr>";
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
                             </nav>
                     </div>
                 </div>

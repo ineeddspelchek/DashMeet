@@ -55,7 +55,7 @@
     $res  = pg_query($dbHandle, "create table meetings (
         id int primary key default nextval('meetings_seq'),
         name text,
-        hostID int,
+        hostID int references ourUsers(id),
         start timestamp,
         stop timestamp
     );");
@@ -85,7 +85,6 @@
         stop timestamp
     );");
     assert($res !== false);
-
 
 
 
