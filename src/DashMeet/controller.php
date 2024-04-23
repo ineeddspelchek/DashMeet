@@ -240,8 +240,8 @@ class controller {
 
         # creating new meeting
         if(isset($_POST["meetingName"])) { 
-            $res = $this->db->query("insert into meetings (name, hostID) values ($1, $2) returning id;",
-                                    $_POST["meetingName"], $userID);
+            $res = $this->db->query("insert into meetings (name, hostID, start, stop) values ($1, $2, $3, $4) returning id;",
+                                    $_POST["meetingName"], $userID, $_POST["meetingStart"], $_POST["meetingStop"]);
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
         }

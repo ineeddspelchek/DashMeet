@@ -16,7 +16,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-        <title>Availability Scheduler</title>
+        <title>Member View</title>
         <meta name="author" content="Sean Katauskas">
         <meta name="description" content="DashMeet Scheduler">
         <meta name="keywords" content="DashMeet">     
@@ -54,28 +54,21 @@
                 <div class="offcanvas-xl d-xl-none offcanvas-start left-column left-column-mobile" tabindex="-1" id="offcanvasLeft"></div>
 
                 <div class="p-2 d-none d-xl-block flex-shrink-1 left-column left-column-desktop"> 
-                    <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
-                        <a class="collapse show btn btn-link collapse-button collapse-button-inactive collapse2-1" data-bs-toggle="collapse" href=".collapse2-1" role="button" aria-expanded="false">
-                            <img src="images/left-arrow.png" alt="inactive drop-down icon">
-                        </a>    
-                        <a class="collapse btn btn-link collapse-button collapse-button-active collapse2-1" data-bs-toggle="collapse" href=".collapse2-1" role="button" aria-expanded="false">
-                            <img src="images/left-arrow.png" alt="active drop-down icon">
+                    <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                        <a class="btn btn-link collapse-button" onclick="$(this).hasClass('collapse-active') ? $(this).removeClass('collapse-active') : $(this).addClass('collapse-active')" data-bs-toggle="collapse" href=".collapse-1" role="button" aria-expanded="false">
+                            <img src="images/left-arrow.png" alt="dropdown icon">
                         </a>
-                        <p>iCloud Calendars</p>
+                        <p>My Calendars</p>
                     </div>        
-                    <div class="border border-dark collapse collapse-body collapse2-1" style="margin-left: 1rem;">
-                            <!-- inside collapsed -->
-                            <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
-                                <a class="collapse show btn btn-link collapse-button collapse-button-inactive collapse2-1-1" data-bs-toggle="collapse" href=".collapse2-1-1" role="button" aria-expanded="false">
-                                    <img src="images/left-arrow.png" alt="inactive drop-down icon">
-                                </a>    
-                                <a class="collapse btn btn-link collapse-button collapse-button-active collapse2-1-1" data-bs-toggle="collapse" href=".collapse2-1-1" role="button" aria-expanded="false">
-                                    <img src="images/left-arrow.png" alt="active drop-down icon">
-                                </a>      
-                                <p>johndoe@icloud.com</p>
-                            </div> 
-                            <!-- inside collapsed -->
-                            <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse2-1-1">
+                    <div class="collapse collapse-body collapse-1">
+                        <div class="card card-body">
+                            <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
+                                <a class="btn btn-link collapse-button" onclick="$(this).hasClass('collapse-active') ? $(this).removeClass('collapse-active') : $(this).addClass('collapse-active')" data-bs-toggle="collapse" href=".collapse-1-1" role="button" aria-expanded="false">
+                                    <img src="images/left-arrow.png" alt="dropdown icon">
+                                </a>
+                                <p>File Calendars</p>
+                            </div>
+                            <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse-1-1">
                                 <li class="list-group-item">
                                     <div class="d-flex flex-row align-items-center others-calenders-container">
                                         <input type="checkbox" class="btn-check others-calenders" title="sean availabilities checkbox">
@@ -91,89 +84,8 @@
                                     </div>
                                 </li>
                             </ul>
+                        </div>
                     </div>
-
-
-                    <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
-                        <a class="collapse show btn btn-link collapse-button collapse-button-inactive collapse2-2" data-bs-toggle="collapse" href=".collapse2-2" role="button" aria-expanded="false">
-                            <img src="images/left-arrow.png" alt="inactive drop-down icon">
-                        </a>
-                        <a class="collapse btn btn-link collapse-button collapse-button-active collapse2-2" data-bs-toggle="collapse" href=".collapse2-2" role="button" aria-expanded="false">
-                            <img src="images/left-arrow.png" alt="active drop-down icon">
-                        </a>
-                        <p>Google Calendars</p>        
-                    </div>     
-                    <div class="border border-dark collapse collapse-body collapse2-2" style="margin-left: 1rem;">
-                        <!-- inside collapsed -->
-                        <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
-                            <a class="collapse show btn btn-link collapse-button collapse-button-inactive collapse2-2-1" data-bs-toggle="collapse" href=".collapse2-2-1" role="button" aria-expanded="false">
-                                <img src="images/left-arrow.png" alt="inactive drop-down icon">
-                            </a>    
-                            <a class="collapse btn btn-link collapse-button collapse-button-active collapse2-2-1" data-bs-toggle="collapse" href=".collapse2-2-1" role="button" aria-expanded="false">
-                                <img src="images/left-arrow.png" alt="active drop-down icon">
-                            </a>      
-                            <p>johndoe@gmail.com</p>
-                        </div>    
-                        <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse2-2-1">
-                            <li class="list-group-item">
-                                <div class="d-flex flex-row align-items-center others-calenders-container">
-                                    <input type="checkbox" class="btn-check others-calenders" title="sean availabilities checkbox">
-                                    <label class="btn btn-outline-warning others-calenders"></label><br>
-                                    <p class="p-0">Work Events</p>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex flex-row align-items-center others-calendars-container">
-                                    <input type="checkbox" class="btn-check others-calenders" title="henry availabilities checkbox">
-                                    <label class="btn btn-outline-success others-calenders"></label><br>
-                                    <p class="p-0">School Schedule</p>
-                                </div>
-                            </li>
-                        </ul>                     
-                    </div>
-                    
-
-                    <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
-                        <a class="collapse show btn btn-link collapse-button collapse-button-inactive collapse2-3" data-bs-toggle="collapse" href=".collapse2-3" role="button" aria-expanded="false">
-                            <img src="images/left-arrow.png" alt="inactive drop-down icon">
-                        </a>
-                        <a class="collapse btn btn-link collapse-button collapse-button-active collapse2-3" data-bs-toggle="collapse" href=".collapse2-3" role="button" aria-expanded="false">
-                            <img src="images/left-arrow.png" alt="active drop-down icon">
-                        </a>
-                        <p>Outlook Calendars</p>        
-                    </div>     
-                    <div class="border border-dark collapse collapse-body collapse2-3" style="margin-left: 1rem;">
-                        <!-- inside collapsed -->
-                        <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
-                            <a class="collapse show btn btn-link collapse-button collapse-button-inactive collapse2-3-1" data-bs-toggle="collapse" href=".collapse2-3-1" role="button" aria-expanded="false">
-                                <img src="images/left-arrow.png" alt="inactive drop-down icon">
-                            </a>    
-                            <a class="collapse btn btn-link collapse-button collapse-button-active collapse2-3-1" data-bs-toggle="collapse" href=".collapse2-3-1" role="button" aria-expanded="false">
-                                <img src="images/left-arrow.png" alt="active drop-down icon">
-                            </a>      
-                            <p>johndoe@hotmail.com</p>
-                        </div> 
-                        <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse2-3-1">
-                            <li class="list-group-item">
-                                <div class="d-flex flex-row align-items-center others-calenders-container">
-                                    <input type="checkbox" class="btn-check others-calenders" title="sean availabilities checkbox">
-                                    <label class="btn btn-outline-warning others-calenders"></label><br>
-                                    <p class="p-0">Sports Schedule</p>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex flex-row align-items-center others-calendars-container">
-                                    <input type="checkbox" class="btn-check others-calenders" title="henry availabilities checkbox">
-                                    <label class="btn btn-outline-success others-calenders"></label><br>
-                                    <p class="p-0">Break Schedule</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                       
-                    
-                    
                 </div>
 
                 <!-- ################################################################################################################## -->
@@ -192,102 +104,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>12 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>1 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>2 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>3 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>4 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>5 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>6 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>7 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>8 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>9 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>10 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>11 AM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>12 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>1 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>2 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>3 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>4 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>5 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>6 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>7 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>8 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>9 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>10 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
-                            <tr>
-                                <th>11 PM</th>
-                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            </tr>
+                            <?php
+                            echo "<tr>";
+                            echo "<th>" . 12 . " AM</th>";
+                            echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                            echo "</tr>";
+                            for ($i=1; $i < 12; $i++) {
+                                echo "<tr>";
+                                echo "<th>" . $i . " AM</th>";
+                                echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                                echo "</tr>";
+                            }
+                            echo "<tr>";
+                            echo "<th>" . 12 . " PM</th>";
+                            echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                            echo "</tr>";
+                            for ($i=1; $i < 12; $i++) {
+                                echo "<tr>";
+                                echo "<th>" . $i . " PM</th>";
+                                echo "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>

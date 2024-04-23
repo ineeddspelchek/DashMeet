@@ -69,18 +69,17 @@
     );");
     assert($res !== false);
 
-    $res  = pg_query($dbHandle, "create table subcalendars (
-        id int primary key default nextval('subcalendars_seq'),
-        supercalendarID int references calendars(id),
-        meetingID int references meetings(id)
-    );");
-    assert($res !== false);
+    // $res  = pg_query($dbHandle, "create table subcalendars (
+    //     id int primary key default nextval('subcalendars_seq'),
+    //     supercalendarID int references calendars(id),
+    //     meetingID int references meetings(id)
+    // );");
+    // assert($res !== false);
 
     $res  = pg_query($dbHandle, "create table events (
         id int primary key default nextval('subcalendars_seq'),
         calendarID int references calendars(id),
         name text,
-        repeats text,
         start timestamp,
         stop timestamp
     );");
@@ -90,7 +89,7 @@
 
     $res  = pg_query($dbHandle, "create table membersOf (
         meetingID int references meetings(id),
-        memberID int references users(id),
+        memberID int references ourUsers(id),
         primary key (meetingID, memberID)
     );");
     assert($res !== false);

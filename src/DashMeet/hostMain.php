@@ -43,7 +43,8 @@
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
-                Your <i>"Graphic Design is Our Passion"</i> Meet
+                <?php $res = $this->db->query("SELECT name FROM meetings where id=$1;",$meetingID);?>
+                Your <i>"<?=$res[0]["name"]?>"</i> Meet
             </span>
         </div>
           
@@ -99,20 +100,17 @@
                                 <p>File Calendars</p>
                             </div>
                             <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse-1-1">
-                                <li class="list-group-item">
-                                    <div class="d-flex flex-row align-items-center others-calenders-container">
-                                        <input type="checkbox" class="btn-check others-calenders" title="sean availabilities checkbox">
-                                        <label class="btn btn-outline-warning others-calenders"></label><br>
-                                        <p class="p-0">March Madness</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="d-flex flex-row align-items-center others-calendars-container">
-                                        <input type="checkbox" class="btn-check others-calenders" title="henry availabilities checkbox">
-                                        <label class="btn btn-outline-success others-calenders"></label><br>
-                                        <p class="p-0">Birthdays</p>
-                                    </div>
-                                </li>
+                                <?php 
+                                $res = $this->db->query("SELECT name, id FROM calendars where userID=$1;",$userID);
+                                foreach ($res as $key => $calendar) {
+                                ?>
+                                    <li class="list-group-item">
+                                        <div class="d-flex flex-row align-items-center others-calenders-container">
+                                            <input type="checkbox" class="form-check-input" title="sean availabilities checkbox">
+                                            <p class="p-1"><?=$calendar["name"]?></p>
+                                        </div>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -200,12 +198,16 @@
 
                     <p class="member-title">Joined Attendees:</p>
                     <p class="d-flex flex-column member-body">
-                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="gry5bu@virginia.edu">Sean</a>
-                        <a href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="han5jn@virginia.edu">Henry</a>
+                        <?php 
+                        $res = $this->db->query("SELECT fullname, email from membersOf join ourUsers on membersOf.memberID=ourUsers.id where meetingID=$1;", $meetingID);
+                        foreach ($res as $key => $member) {
+                        ?>
+                            <a class="w-100" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="<?=$member["email"]?>"><?=$member["fullname"]?></a>
+                        <?php } ?>
                     </p>
 
-                    <p class="description-title">Description:</p>
-                    <textarea class="description-entry" name="desc-entry" title="description entry box"></textarea>
+                    <!-- <p class="description-title">Description:</p>
+                    <textarea class="description-entry" name="desc-entry" title="description entry box"></textarea> -->
 
                     <button class="btn btn-dark share-button" type="button" data-bs-toggle="modal" data-bs-target="#shareModal">Invite More</button>
                     <button class="btn btn-success book-button" type="button" disabled>Book Meeting</button>

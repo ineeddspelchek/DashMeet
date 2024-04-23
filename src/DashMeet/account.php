@@ -14,7 +14,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-        <title>Account</title>
+        <title>Dashboard</title>
         <meta name="author" content="Sean Katauskas">
         <meta name="description" content="DashMeet Scheduler">
         <meta name="keywords" content="DashMeet">
@@ -27,13 +27,37 @@
         <script>
             function load() {
                 $('#joinModal').modal('show');
+                $("#meetingValidationMessage").hide()
             }
 
             function save() {
             }
 
             function newMeetingContinue() {
-                //TODO: ADD VALIDATION (END > START DATE)
+                start = Date.parse($("#meetingStart").val());
+                stop = Date.parse($("#meetingStop").val());
+                today = Date.now();
+
+                message = ""
+                
+                if(start < today)
+                    message = "Start time has already passed."
+                else if(stop < today)
+                    message = "End time has already passed."
+                else if(start == stop)
+                    message = "Start time is the same as end time."
+                else if(stop < start)
+                    message = "End time is before start time."
+
+                if(message != "") {
+                    $("#meetingValidationMessage").html(message)
+                    $("#meetingValidationMessage").show()
+                    setTimeout(function() {
+                        $("#meetingValidationMessage").html("");
+                        $("#meetingValidationMessage").hide();
+                    }, 4000);
+                    return false;
+                }
                 return true;
             }
         </script>
@@ -44,7 +68,7 @@
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
-                Account Page
+                Dashboard
             </span>
         </div>
 
@@ -61,18 +85,21 @@
                         Meeting Name:
                         <input type="text" name="meetingName" required>
                         Start Time:
-                        <input type="datetime-local" name="meetingStart" required>
+                        <input type="datetime-local" name="meetingStart" id="meetingStart" required>
                         End Time:
-                        <input type="datetime-local" name="meetingStop" required>
+                        <input type="datetime-local" name="meetingStop" id="meetingStop" required>
+                        
+                        <div class="alert alert-warning" id="meetingValidationMessage"></div>
                         <button class="btn btn-primary">Continue</button>
                         
                     </div>
                 </form>
                 <script>
-                    $("#newMeetingContinue").on('submit', function(event) {
+                    $("#newMeetingContinue").on('submit', (event) => {
                         event.preventDefault();
                         if(newMeetingContinue())
-                            this.submit();
+                            $("#newMeetingContinue").off('submit');
+                            $("#newMeetingContinue").submit();
                     });
                 </script>
                 </div>
@@ -100,12 +127,11 @@
             </div>
         <?php } ?>
 
-        <div class="container">
-            <h1>Dashboard</h1>            
+        <div class="container">         
             <div class="d-flex flex-row flex-wrap align-items-stretch column-area">
                 <div class="p-2 flex-fill"> 
                     <h3>
-                        Edit Profile:
+                        Edit Profile
                     </h3>
                     <div class="card">
                         <form action="?command=changeProfile" method="post">
@@ -122,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="p-2 flex-fill">
+                <div class="p-2 w-100 flex-fill">
                     <h3>My Hosted Meetings</h3>
                     <div class="card spacing">
                             <table class="table">
@@ -162,7 +188,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <nav aria-label="Page navigation example">
+                            <!-- <nav aria-label="Page navigation example">
                                 <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -171,11 +197,11 @@
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                 </ul>
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newMeetingModal">Start New Meeting</button>
-                            </nav>
+                            </nav> -->
                     </div>
                 </div>
-
-                <div class="p-2 flex-fill">
+                
+                <div class="p-2 w-100 flex-fill">
                     <h3>My Joined Meetings</h3>
                     <div class="card spacing">
                             <table class="table">
@@ -210,7 +236,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <nav aria-label="Page navigation example">
+                            <!-- <nav aria-label="Page navigation example">
                                 <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -218,12 +244,12 @@
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                 </ul>
-                            </nav>
+                            </nav> -->
                     </div>
                 </div>
 
                 <div class="p-2 col-12 flex-fill">
-                    <h3>My Calendars:</h3>
+                    <h3>My Calendars</h3>
                     <div class="card spacing">
                         <form action="?command=import" method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
@@ -262,10 +288,10 @@
                     </div>
                 </div>
 
-                <div class="p-2 flex-fill">
+                <!-- <div class="p-2 flex-fill">
                     <h3>Edit Availabilities:</h3>
                     <a href="?command=memberMain" class="btn btn-primary">Edit</a>
-                </div>
+                </div> -->
             </div>
         </div>
     
