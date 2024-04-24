@@ -253,6 +253,10 @@ class controller {
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
             $encodedMeetingID = urlencode(base64_encode($meetingID));
+            $meetingName = urlencode($res[0]["name"]);
+            $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
+            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "localhost:8080/?joinID=" . $encodedMeetingID;
+            $url = $emaillink1 . $meetingName . $emaillink2;
             $meetingStart = $_POST["meetingStart"];
             $meetingStop = $_POST["meetingStop"];
             $availabilities = "{\"availabilities\": []}";
@@ -263,6 +267,10 @@ class controller {
             $res = $this->db->query("select * from meetings where id=$1;", $_POST["meetingID"]);
             $meetingID = intval($_POST["meetingID"]);
             $encodedMeetingID = urlencode(base64_encode($meetingID));
+            $meetingName = urlencode($res[0]["name"]);
+            $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
+            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "localhost:8080/?joinID=" . $encodedMeetingID;
+            $url = $emaillink1 . $meetingName . $emaillink2;
             $meetingStart = $res[0]["start"];
             $meetingStop = $res[0]["stop"];
             $availabilities = $res[0]["hostjson"];

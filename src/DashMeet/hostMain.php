@@ -188,7 +188,7 @@
                     <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$encodedMeetingID?>"> 
                     <img class="copy-icon" src="images/copy.png" alt="copy icon">
 
-                    <div class="d-flex align-items-center btn btn-light gmail">
+                    <div class="d-flex align-items-center btn btn-light gmail" onclick="window.open('<?=$url?>', '_blank')">
                         <img class="share-icon" src="images/gmail.png" alt="gmail icon">
                         <p>Gmail</p>
                     </div>
