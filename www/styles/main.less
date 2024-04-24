@@ -9,6 +9,7 @@
 // https://www.geeksforgeeks.org/how-to-rotate-image-in-html/
 // https://stackoverflow.com/questions/50265617/remove-html-element-completely-just-by-using-css
 // https://www.w3schools.com/cssref/css_selectors.php
+// https://stackoverflow.com/questions/23625843/outline-border-bottom-only
 
 .rotate90CW {
     transform: rotate(90deg);
@@ -243,6 +244,20 @@ div.subbody {
                             font-weight: 500;
                             width:70px;
                             padding-top:0;
+                        }
+
+                        td {
+                            div {
+                                border-top: 0.1px solid;
+                                border-bottom: 0.1px solid;
+                                border-color:rgb(236, 236, 236);
+                            }
+                            div.selected {
+                                background-color: #64d195;
+                            }
+                            div.ignore {
+                                background-color: black !important;
+                            }
                         }
                     }
                 }

@@ -244,11 +244,16 @@ class controller {
                                     $_POST["meetingName"], $userID, $_POST["meetingStart"], $_POST["meetingStop"]);
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
+            $meetingStart = $_POST["meetingStart"];
+            $meetingStop = $_POST["meetingStop"];
         }
 
         # viewing meeting that was already made
         if(isset($_POST["meetingID"])) {
+            $res = $this->db->query("select * from meetings where id=$1;", $_POST["meetingID"]);
             $meetingID = intval($_POST["meetingID"]);
+            $meetingStart = $res[0]["start"];
+            $meetingStop = $res[0]["stop"];
         }
 
         if (!empty($this->errorMessage)) {

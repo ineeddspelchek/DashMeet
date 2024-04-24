@@ -67,13 +67,22 @@
         if(preg_match("/\nRRULE:FREQ=.*\n/", $inp, $repeatsReg)) {
             $repeats = $repeatsReg[0];
             $out .= "\"repeats\": \"" . trim(explode("=", explode(";", $repeats)[0])[1]) . "\",";
+            $out .= "\"repeatsUntil\": \"" . trim(explode("=", explode(";", $repeats)[1])[1]) . "\",";
             if(trim(explode("=", explode(";", $repeats)[0])[1]) === "WEEKLY") {
-                $out .= "\"repeatsOn\": \"" . trim(explode("=", explode(";", $repeats)[1])[1]) . "\",";
+                $out .= "\"repeatsOn\": \"" . trim(explode("=", explode(";", $repeats)[3])[1]) . "\",";
             }
         }
 
+        if(preg_match_all("/\nEXDATE;.*:.*\n/", $inp, $matches)) {
+            $out .= "\"excluded\": " . "[\n";
+            foreach ($matches[0] as $key => $match) {
+                $out .= "\"" . trim(explode(":", $match)[1]) . "\",";
+            }
+            $out = rtrim($out, ",");
+            $out .= "],";
+        }
+
         $out = rtrim($out, ",");
-       
         $out .= "},";
         return $out;
     }
