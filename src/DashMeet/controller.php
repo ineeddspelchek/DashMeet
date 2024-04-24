@@ -282,6 +282,9 @@ class controller {
             $myCalendars[intval($cal["id"])] = $cal;
         }
 
+        $res = $this->db->query("select * from membersOf where meetingID=$1;", $meetingID);
+        $memberJson = $res[0]["json"];
+
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
@@ -292,6 +295,14 @@ class controller {
         $message = "";
         $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
+
+        $res = $this->db->query("select * from meetings where id=$1;", $_POST["meetingID"]);
+        $meetingID = intval($_POST["meetingID"]);
+        $meetingName = urlencode($res[0]["name"]);
+        $meetingStart = $res[0]["start"];
+        $meetingStop = $res[0]["stop"];
+        $res = $this->db->query("select * from membersOf where meetingID=$1 and memberID=$2;", $_POST["meetingID"], $userID);
+        $availabilities = $res[0]["json"];
 
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";

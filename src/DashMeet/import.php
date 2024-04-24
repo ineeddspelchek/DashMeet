@@ -30,17 +30,30 @@
 
     foreach ($JSONArr["events"] as $key => $event) {
         $event = (array) $event;
-        if() {
-            
+        if(isset($event["repeats"]) && $event["repeats"] == "WEEKLY") {
+            for ($i=0; $i < 5000; $i++) {
+                $continue = true;
+                if(strlen($event["repeatsUntil"]) != 2)
+                    $continue = "t" == $this->db->query("select (timestamp '" . $event["start"] .  "' + '" . $i . " weeks') <= '" . $event["repeatsUntil"] . "';")[0]["?column?"];
+                    //var_dump($continue);
+                if($continue) {
+                    $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' + '" . $i . " weeks', timestamp '" . $event["end"] .  "' + '" . $i . " weeks');",
+                                intval($calRes[0]["id"]), $event["name"]);
+                    var_dump($res);
+                }
+                else {
+                    break;
+                }
+            }
         }
         else {
-        $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, $3, $4);",
+            $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, $3, $4);",
                                 intval($calRes[0]["id"]), $event["name"], $event["start"], $event["end"]);
         }
     }
 
 
-    header("Location: ?command=account");
+    //header("Location: ?command=account");
     return;
 
     function start($explodedStr) {

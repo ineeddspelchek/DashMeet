@@ -57,7 +57,7 @@
         id int primary key default nextval('meetings_seq'),
         name text,
         hostID int references ourUsers(id),
-        hostJSON text default '[]',
+        hostJSON text default '{\"availabilities\": []}',
         start timestamp,
         stop timestamp
     );");
@@ -83,7 +83,7 @@
     $res  = pg_query($dbHandle, "create table membersOf (
         meetingID int references meetings(id),
         memberID int references ourUsers(id),
-        json text default '[]',
+        json text default '{\"availabilities\": []}',
         jsonSubmitted boolean default false,
         primary key (meetingID, memberID)
     );");

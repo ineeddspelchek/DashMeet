@@ -70,7 +70,117 @@
                 $('#nextPage').on("click", () => changePage(1));
                 $('.inner-cell').on("dblclick", innerCellDoubleClick);
                 $('.inner-cell').on("click", innerCellClick);
+                $('.my-calendar-checkbox').on("click", funnyBusiness);
+                $('.others-calendar-checkbox').on("click", funnyBusiness2);
+
                 setupCal();
+            }
+
+            function funnyBusiness() {
+                if($(this).is(':checked')) {
+                    $("#1-1200").addClass("blocked");
+                    $("#1-1215").addClass("blocked");
+                    $("#1-1230").addClass("blocked");
+                    $("#1-1245").addClass("blocked"); 
+                    $("#1-1300").addClass("blocked");
+                    $("#1-1315").addClass("blocked");
+                    $("#1-1330").addClass("blocked");
+                    $("#1-1345").addClass("blocked");
+                    $("#1-1400").addClass("blocked");
+                    $("#1-1415").addClass("blocked");
+                    $("#1-1430").addClass("blocked");
+                    $("#1-1445").addClass("blocked");
+                    $("#1-1500").addClass("blocked");
+                    $("#1-1515").addClass("blocked");
+                    $("#1-1530").addClass("blocked");
+                    $("#1-1545").addClass("blocked");
+
+                    
+                    $("#2-1200").addClass("blocked");
+                    $("#2-1215").addClass("blocked");
+                    $("#2-1230").addClass("blocked");
+                    $("#2-1245").addClass("blocked");
+
+                    $("#4-1200").addClass("blocked");
+                    $("#4-1215").addClass("blocked");
+                    $("#4-1230").addClass("blocked");
+                    $("#4-1245").addClass("blocked");
+
+                    $("#2-1400").addClass("blocked");
+                    $("#2-1415").addClass("blocked");
+                    $("#2-1430").addClass("blocked");
+                    $("#2-1445").addClass("blocked");
+                    $("#2-1500").addClass("blocked");
+                    $("#2-1515").addClass("blocked");
+
+                    $("#4-1400").addClass("blocked");
+                    $("#4-1415").addClass("blocked");
+                    $("#4-1430").addClass("blocked");
+                    $("#4-1445").addClass("blocked");
+                    $("#4-1500").addClass("blocked");
+                    $("#4-1515").addClass("blocked");
+                }
+                else {
+                    $("#1-1200").removeClass("blocked");
+                    $("#1-1215").removeClass("blocked");
+                    $("#1-1230").removeClass("blocked");
+                    $("#1-1245").removeClass("blocked"); 
+                    $("#1-1300").removeClass("blocked");
+                    $("#1-1315").removeClass("blocked");
+                    $("#1-1330").removeClass("blocked");
+                    $("#1-1345").removeClass("blocked");
+                    $("#1-1400").removeClass("blocked");
+                    $("#1-1415").removeClass("blocked");
+                    $("#1-1430").removeClass("blocked");
+                    $("#1-1445").removeClass("blocked");
+                    $("#1-1500").removeClass("blocked");
+                    $("#1-1515").removeClass("blocked");
+                    $("#1-1530").removeClass("blocked");
+                    $("#1-1545").removeClass("blocked");
+
+                    
+                    $("#2-1200").removeClass("blocked");
+                    $("#2-1215").removeClass("blocked");
+                    $("#2-1230").removeClass("blocked");
+                    $("#2-1245").removeClass("blocked");
+
+                    $("#4-1200").removeClass("blocked");
+                    $("#4-1215").removeClass("blocked");
+                    $("#4-1230").removeClass("blocked");
+                    $("#4-1245").removeClass("blocked");
+
+                    $("#2-1400").removeClass("blocked");
+                    $("#2-1415").removeClass("blocked");
+                    $("#2-1430").removeClass("blocked");
+                    $("#2-1445").removeClass("blocked");
+                    $("#2-1500").removeClass("blocked");
+                    $("#2-1515").removeClass("blocked");
+
+                    $("#4-1400").removeClass("blocked");
+                    $("#4-1415").removeClass("blocked");
+                    $("#4-1430").removeClass("blocked");
+                    $("#4-1445").removeClass("blocked");
+                    $("#4-1500").removeClass("blocked");
+                    $("#4-1515").removeClass("blocked");
+                }
+            }
+
+            function funnyBusiness2() {
+                if($(this).is(':checked')) {
+                    memberJSON = "<?=addslashes($memberJson)?>";
+                    out = memberJSON.split("\"").filter((word) => word.length == 6);
+                    out.forEach(element => {
+                        $("#"+element).addClass("available");
+                    });
+                }
+                else {
+                    memberJSON = "<?=addslashes($memberJson)?>";
+                    out = memberJSON.split("\"").filter((word) => word.length == 6);
+                    out.forEach(element => {
+                        $("#"+element).removeClass("available");
+                    });
+                }
+                return out;
             }
 
             function setupCal() {
@@ -164,6 +274,53 @@
                     }
                 });
             }
+
+            function get15Blocks(start, stop) {
+                blocks = [];
+                startDay = Math.floor((start - sunday) / DAY_IN_SECS);
+                stopDay = Math.floor((stop - sunday) / DAY_IN_SECS);
+
+                if(startDay != stopDay) {
+
+                }
+
+                startHour = Math.floor((((start - sunday) / DAY_IN_SECS) - startDay ) * 24);
+                stopHour = Math.floor((((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24);
+                startRem = (((start - sunday) / DAY_IN_SECS) - startDay ) * 24 - startHour;
+                stopRem = (((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24 - stopHour;
+                
+                if(startRem >= .75)
+                    startSub = 45;
+                else if(startRem >= .5)
+                    startSub = 30;
+                else if(startRem >= .25)
+                    startSub = 15;
+                else
+                    startSub = 0;
+
+                if(stopRem >= .75)
+                    stopSub = 45;
+                else if(stopRem >= .5)
+                    stopSub = 30;
+                else if(stopRem >= .25)
+                    stopSub = 15;
+                else
+                    stopSub = 0;
+
+                hour = startHour;
+                rem = startRem;
+                while(hour !== stopHour && rem !== stopRem) {
+                    blocks.push("" + startDay + "-" + hour.toString().padStart(2, "0") + rem.toString().padStart(2, "0"));
+                    rem += 15;
+                    if(rem == 60) {
+                        hour++;
+                        rem = 0;
+                    }
+                    console.log(hour, stopHour, rem, stopRem)
+                }
+                console.log(blocks);
+                return blocks;
+            }
         </script>
 
     </head>
@@ -220,7 +377,7 @@
                             <img src="images/left-arrow.png" alt="dropdown icon">
                         </a>
                         <p>My Calendars</p>
-                    </div>        
+                    </div>
                     <div class="collapse collapse-body collapse-1">
                         <div class="card card-body">
                             <div class="border border-dark d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
@@ -246,11 +403,11 @@
                         </div>
                     </div>
 
-                    <div class="d-flex flex-row align-items-center shared-availabilities-container">
+                    <!-- <div class="d-flex flex-row align-items-center shared-availabilities-container">
                         <input type="checkbox" class="btn-check shared-availabilities" title="shared availabilities checkbox">
                         <label class="btn btn-outline-primary shared-availabilities"></label><br>
                         <p class="p-0">Shared Availabilities</p>
-                    </div>
+                    </div> -->
 
                     <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="btn btn-link collapse-button" onclick="$(this).hasClass('collapse-active') ? $(this).removeClass('collapse-active') : $(this).addClass('collapse-active')" data-bs-toggle="collapse" href=".collapse-2" role="button" aria-expanded="false">
@@ -265,7 +422,7 @@
                         ?> 
                             <li class="list-group-item">
                                 <div class="d-flex flex-row align-items-center others-calenders-container">
-                                    <input type="checkbox" class="form-check-input" title="sean availabilities checkbox">
+                                    <input type="checkbox" class="form-check-input others-calendar-checkbox" title="sean availabilities checkbox">
                                     <p class="p-1"><?=$member["fullname"]?></p>
                                 </div>
                             </li>
