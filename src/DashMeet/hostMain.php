@@ -1,3 +1,12 @@
+<?php // If ajax requested, fulfill the request and then leave before anything else gets put in the response
+    if(isset($_POST["AjaxRequest"])) {
+        $res = $this->db->query("update meetings set hostJSON=$2 where id=$1;", 
+                                $_POST["meetingID"], $_POST["availabilities"]);
+        
+        return;
+    }
+?>
+
 <!-- Sources: 
     https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_link_image
     https://stackoverflow.com/questions/8174282/link-to-reload-current-page
@@ -17,6 +26,8 @@
     https://stackoverflow.com/questions/563406/how-to-add-days-to-date
     https://stackoverflow.com/questions/3239598/how-can-i-get-the-id-of-an-element-using-jquery
     https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
+    https://stackoverflow.com/questions/28993157/visibilitychange-event-is-not-triggered-when-switching-program-window-with-altt
+    https://developer.mozilla.org/en-US/docs/Web/
 
 -->
 
@@ -38,6 +49,10 @@
         <script src="jquery.js" type="text/javascript"></script>
         
         <script>
+            addEventListener("beforeunload", (event) => {
+                event.preventDefault();
+                save();
+            })
             var DAY_IN_SECS = 86400000;
             
             var currPage = 0;
@@ -47,7 +62,7 @@
             sunday.setHours(0);
             sunday.setMinutes(0);
             sunday.setSeconds(0);
-            var availabilities = JSON.parse("<?= $availabilities ?>");
+            var availabilities = <?= $availabilities ?>["availabilities"];
 
             function load() {
                 $(".left-column-desktop >").clone().appendTo(".left-column-mobile");
@@ -98,8 +113,7 @@
                 saveCurrentAvailabilities();
                 $.ajax({
                     method: "POST",
-                    url: "saveAvailabilities.php",
-                    data: { "host": true, "meetingID": <?=$meetingID?>, "memberID": <?=$userID?>, "availabilities": JSON.stringify({availabilities}) }
+                    data: { "AjaxRequest": true, "host": true, "meetingID": <?=$meetingID?>, "memberID": <?=$userID?>, "availabilities": JSON.stringify({availabilities}) }
                 }).done((x) => console.log(x));
             }
 
@@ -109,6 +123,7 @@
                 else {
                     $(this).addClass("selected");
                 }
+                saveCurrentAvailabilities();
             }
 
             function innerCellDoubleClick() {
@@ -123,6 +138,7 @@
                     $siblings.addClass("selected");
                     $(this).addClass("selected");
                 }
+                saveCurrentAvailabilities();
             }
 
             function changePage(dir) {
@@ -151,7 +167,7 @@
         </script>
 
     </head>
-    <body onload="load();" onunload="save();">
+    <body onload="load();">
         <?php include("header.php"); ?>
 
         <div class="row justify-content-between subheader">

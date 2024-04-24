@@ -9,13 +9,13 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 
 
 try {
-    $host = "db";
-    $port = "5432";
-    $database = "example";
-    $user = "localuser";
-    $password = "cs4640LocalUser!"; 
+    // $host = "db";
+    // $port = "5432";
+    // $database = "example";
+    // $user = "localuser";
+    // $password = "cs4640LocalUser!"; 
 
-    $dbHandle = pgp_connect("host=$host port=$port dbname=$database user=$user password=$password");
+    // $dbHandle = pgp_connect("host=$host port=$port dbname=$database user=$user password=$password");
     if($_POST["host"] == "true") {
         echo var_dump(pg_query($dbHandle, "select * from meetings;"));
         $res1 = pg_get_result($dbHandle);
@@ -29,6 +29,6 @@ try {
     }
 }
 catch (\Error $e) {
-    //echo $e->getMessage();
+    echo $e->getMessage();
 }
 ?>
