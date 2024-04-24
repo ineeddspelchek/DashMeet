@@ -1,6 +1,6 @@
 <?php // If ajax requested, fulfill the request and then leave before anything else gets put in the response
     if(isset($_POST["AjaxRequest"])) {
-        $res = $this->db->query("update membersOf set json=$3 where meetingID=$1 and memberID=$2;", 
+        $res = $this->db->query("update membersOf set json=$3, jsonsubmitted=true where meetingID=$1 and memberID=$2;", 
                                 intval($_POST["meetingID"]), intval($_POST["userID"]), $_POST["availabilities"]);
         
         return;
