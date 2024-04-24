@@ -47,7 +47,7 @@
             sunday.setHours(0);
             sunday.setMinutes(0);
             sunday.setSeconds(0);
-            var availabilities = [];
+            var availabilities = JSON.parse("<?= $availabilities ?>");
 
             function load() {
                 $(".left-column-desktop >").clone().appendTo(".left-column-mobile");
@@ -95,7 +95,12 @@
             }
 
             function save() {
-                saveAvailabilities();
+                saveCurrentAvailabilities();
+                $.ajax({
+                    method: "POST",
+                    url: "saveAvailabilities.php",
+                    data: { "host": true, "meetingID": <?=$meetingID?>, "memberID": <?=$userID?>, "availabilities": JSON.stringify({availabilities}) }
+                }).done((x) => console.log(x));
             }
 
             function innerCellClick() {
@@ -121,7 +126,7 @@
             }
 
             function changePage(dir) {
-                saveAvailabilities();
+                saveCurrentAvailabilities();
                 
                 currPage += dir;
                 $("#currPage").html(currPage+1);
@@ -131,7 +136,7 @@
                 setupCal();
             }
 
-            function saveAvailabilities() {
+            function saveCurrentAvailabilities() {
                 $(".selected").each(function() {
                     if(!availabilities[currPage].includes($(this).attr('id')))
                         availabilities[currPage].push($(this).attr('id'));
@@ -164,7 +169,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="d-flex flex-column modal-body">
-                    <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$meetingID?>">
+                    <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$meetingID?>"> 
                     <img class="copy-icon" src="images/copy.png" alt="copy icon">
 
                     <div class="d-flex align-items-center btn btn-light gmail">

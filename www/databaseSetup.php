@@ -13,9 +13,9 @@
     $port = "5432";
     $database = "example";
     $user = "localuser";
-    $password = "cs4640LocalUser!"; 
+    $password = "cs4640LocalUser!";
 
-    $dbHandle = pg_connect("host=$host port=$port dbname=$database user=$user password=$password");
+    $dbHandle = pg_pconnect("host=$host port=$port dbname=$database user=$user password=$password");
 
     if ($dbHandle) {
         echo "Success connecting to database";
@@ -56,7 +56,7 @@
         id int primary key default nextval('meetings_seq'),
         name text,
         hostID int references ourUsers(id),
-        hostJSON text default '', 
+        hostJSON text default '[]',
         start timestamp,
         stop timestamp
     );");
@@ -82,7 +82,7 @@
     $res  = pg_query($dbHandle, "create table membersOf (
         meetingID int references meetings(id),
         memberID int references ourUsers(id),
-        json text default '',
+        json text default '[]',
         primary key (meetingID, memberID)
     );");
     assert($res !== false);

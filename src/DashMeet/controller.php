@@ -220,6 +220,7 @@ class controller {
         }
         include("/opt/src/DashMeet/getJSON.php");
     }
+    
     public function viewEvents() {
         $message = "";
         $userID = $_SESSION["userID"];
@@ -240,12 +241,13 @@ class controller {
 
         # creating new meeting
         if(isset($_POST["meetingName"])) { 
-            $res = $this->db->query("insert into meetings (name, hostID, start, stop) values ($1, $2, $3, $4) returning id;",
+            $res = $this->db->query("insert into meetings (name, hostID, start, stop) values ($1, $2, $3, $4) returning *;",
                                     $_POST["meetingName"], $userID, $_POST["meetingStart"], $_POST["meetingStop"]);
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
             $meetingStart = $_POST["meetingStart"];
             $meetingStop = $_POST["meetingStop"];
+            $availabilities = $res[0]["hostjson"];
         }
 
         # viewing meeting that was already made
@@ -254,6 +256,7 @@ class controller {
             $meetingID = intval($_POST["meetingID"]);
             $meetingStart = $res[0]["start"];
             $meetingStop = $res[0]["stop"];
+            $availabilities = $res[0]["hostjson"];
         }
 
         if (!empty($this->errorMessage)) {
