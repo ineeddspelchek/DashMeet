@@ -1,3 +1,12 @@
+<?php // If ajax requested, fulfill the request and then leave before anything else gets put in the response
+    if(isset($_POST["AjaxRequest"])) {
+        $res = $this->db->query("update membersOf set json=$3 where meetingID=$1 and memberID=$2;", 
+                                intval($_POST["meetingID"]), intval($_POST["userID"]), $_POST["availabilities"]);
+        
+        return;
+    }
+?>
+
 <!-- Sources: 
     https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_link_image
     https://stackoverflow.com/questions/8174282/link-to-reload-current-page
