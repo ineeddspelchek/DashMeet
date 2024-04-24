@@ -268,6 +268,12 @@ class controller {
             $availabilities = $res[0]["hostjson"];
         }
 
+        $myCalendars = [];
+        $res = $this->db->query("select * from calendars where userID=$1;", $userID);
+        foreach ($res as $key => $cal) {
+            $myCalendars[intval($cal["id"])] = $cal;
+        }
+
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }

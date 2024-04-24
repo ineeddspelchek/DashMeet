@@ -2,6 +2,9 @@
     // Sources:
     // https://stackoverflow.com/questions/4064444/returning-json-from-a-php-script
     // https://icalendar.org/
+    // https://stackoverflow.com/questions/4286423/remove-first-4-characters-of-a-string-with-php
+    // https://www.geeksforgeeks.org/what-is-stdclass-in-php/
+    // https://stackoverflow.com/questions/10542310/how-can-i-get-the-last-7-characters-of-a-php-string
     
     // By Henry Newton
 
@@ -19,8 +22,24 @@
 
     //header('Content-Type: application/json; charset=utf-8');
     //echo $outJSON;
-    $res = $this->db->query("insert into calendars (name, userID, json) values ($1, $2, $3);",
+
+
+    $calRes = $this->db->query("insert into calendars (name, userID, json) values ($1, $2, $3) returning *;",
                         $JSONArr["name"], $userID, $outJSON);
+
+
+    foreach ($JSONArr["events"] as $key => $event) {
+        $event = (array) $event;
+        if() {
+            
+        }
+        else {
+        $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, $3, $4);",
+                                intval($calRes[0]["id"]), $event["name"], $event["start"], $event["end"]);
+        }
+    }
+
+
     header("Location: ?command=account");
     return;
 
@@ -39,6 +58,12 @@
     }
 
     function addEvent($inp) {
+        if(preg_match("/\nDTSTART.*\n/", $inp, $testReg)) {
+            if(!str_contains(substr($testReg[0], -10), "T")) {
+                return "";
+            }
+        }
+
         $out = "{";
 
         if(preg_match("/\nSUMMARY:.*\n/", $inp, $nameReg)) {

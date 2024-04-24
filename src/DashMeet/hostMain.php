@@ -169,6 +169,7 @@
     </head>
     <body onload="load();">
         <?php include("header.php"); ?>
+        <!-- <pre><?php var_dump($myCalendars); ?></pre> -->
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
@@ -232,11 +233,11 @@
                                 <?php 
                                 $res = $this->db->query("SELECT name, id FROM calendars where userID=$1;",$userID);
                                 foreach ($res as $key => $calendar) {
-                                    if(isset($calendar["name"])) {    
-                                ?> 
+                                    if(isset($calendar["name"])) {
+                                ?>
                                     <li class="list-group-item">
                                         <div class="d-flex flex-row align-items-center others-calenders-container">
-                                            <input type="checkbox" class="form-check-input" title="sean availabilities checkbox">
+                                            <input type="checkbox" class="form-check-input my-calendar-checkbox" id="<?=$calendar["id"]?>" title="sean availabilities checkbox">
                                             <p class="p-1"><?=$calendar["name"]?></p>
                                         </div>
                                     </li>
@@ -352,7 +353,7 @@
                     <textarea class="description-entry" name="desc-entry" title="description entry box"></textarea> -->
 
                     <button class="btn btn-dark share-button" type="button" data-bs-toggle="modal" data-bs-target="#shareModal">Invite More</button>
-                    <button class="btn btn-success book-button" type="button" disabled>Book Meeting</button>
+                    <!-- <button class="btn btn-success book-button" type="button" disabled>Book Meeting</button> -->
                 </div>
             </div>
         </div>

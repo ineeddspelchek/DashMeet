@@ -2,7 +2,8 @@
     // Sources:
     // https://dba.stackexchange.com/questions/65289/multiple-primary-keys-in-postgresql
     // https://dba.stackexchange.com/questions/279564/how-to-set-default-value-as-empty-string-for-all-rows-at-once-in-mysql-while-cre
-    //
+    // https://stackoverflow.com/questions/14182079/delete-rows-with-foreign-key-in-postgresql
+    // 
 
     // DEBUGGING ONLY! Show all errors. TODO: REMOVE
     error_reporting(E_ALL);
@@ -72,7 +73,7 @@
 
     $res  = pg_query($dbHandle, "create table events (
         id int primary key default nextval('events_seq'),
-        calendarID int references calendars(id),
+        calendarID int references calendars(id) ON DELETE CASCADE,
         name text,
         start timestamp,
         stop timestamp
