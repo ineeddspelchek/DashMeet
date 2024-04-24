@@ -255,7 +255,7 @@ class controller {
             $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingStart = $_POST["meetingStart"];
             $meetingStop = $_POST["meetingStop"];
-            $availabilities = $res[0]["hostjson"];
+            $availabilities = "{\"availabilities\": []}";
         }
 
         # viewing meeting that was already made

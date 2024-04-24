@@ -83,6 +83,7 @@
         meetingID int references meetings(id),
         memberID int references ourUsers(id),
         json text default '[]',
+        jsonSubmitted boolean default false,
         primary key (meetingID, memberID)
     );");
     assert($res !== false);
