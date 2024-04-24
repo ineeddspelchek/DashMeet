@@ -185,7 +185,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="d-flex flex-column modal-body">
-                    <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$meetingID?>"> 
+                    <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$encodedMeetingID?>"> 
                     <img class="copy-icon" src="images/copy.png" alt="copy icon">
 
                     <div class="d-flex align-items-center btn btn-light gmail">

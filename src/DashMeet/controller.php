@@ -161,7 +161,8 @@ class controller {
         }
 
         if(isset($_GET["joinID"])) {
-            $_SESSION["joinID"] = intval($_GET["joinID"]);
+            $decodedMeetingID = base64_decode(urldecode($_GET["joinID"]));
+            $_SESSION["joinID"] = intval($decodedMeetingID);
         }
 
         include("/opt/src/DashMeet/welcome.php");
@@ -251,6 +252,7 @@ class controller {
                                     $_POST["meetingName"], $userID, $_POST["meetingStart"], $_POST["meetingStop"]);
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
+            $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingStart = $_POST["meetingStart"];
             $meetingStop = $_POST["meetingStop"];
             $availabilities = $res[0]["hostjson"];
@@ -260,6 +262,7 @@ class controller {
         if(isset($_POST["meetingID"])) {
             $res = $this->db->query("select * from meetings where id=$1;", $_POST["meetingID"]);
             $meetingID = intval($_POST["meetingID"]);
+            $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingStart = $res[0]["start"];
             $meetingStop = $res[0]["stop"];
             $availabilities = $res[0]["hostjson"];

@@ -9,6 +9,7 @@
 // SOURCES:
 // https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql
 // https://stackoverflow.com/questions/5648509/browsers-wont-read-updated-css
+// https://stackoverflow.com/questions/1374753/passing-base64-encoded-strings-in-url
 
 // DEBUGGING ONLY! Show all errors. TODO: REMOVE
 error_reporting(E_ALL);
