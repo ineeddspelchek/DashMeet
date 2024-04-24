@@ -57,8 +57,14 @@ class controller {
             case "logout":
                 $this->logout();
             default:
-                $this->showWelcome();
-                break;
+                if(isset($_SESSION["email"])) {
+                    $this->account();
+                    break;
+                }
+                else {
+                    $this->showWelcome();
+                    break;
+                }
         }
     }
 
