@@ -27,22 +27,44 @@
     $calRes = $this->db->query("insert into calendars (name, userID, json) values ($1, $2, $3) returning *;",
                         $JSONArr["name"], $userID, $outJSON);
 
-
     foreach ($JSONArr["events"] as $key => $event) {
         $event = (array) $event;
         if(isset($event["repeats"]) && $event["repeats"] == "WEEKLY") {
-            for ($i=0; $i < 5000; $i++) {
-                $continue = true;
-                if(strlen($event["repeatsUntil"]) != 2)
-                    $continue = "t" == $this->db->query("select (timestamp '" . $event["start"] .  "' + '" . $i . " weeks') <= '" . $event["repeatsUntil"] . "';")[0]["?column?"];
-                    //var_dump($continue);
-                if($continue) {
-                    $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' + '" . $i . " weeks', timestamp '" . $event["end"] .  "' + '" . $i . " weeks');",
+            for ($i=0; $i < 500; $i++) {
+                if(strlen($event["repeatsUntil"]) != 2) {
+                    $continue = true;
+
+                    if($event["repeatsOn"] == "") {
+                        $continue = "t" == $this->db->query("select (timestamp '" . $event["start"] .  "' + '" . $i . " weeks') <= '" . $event["repeatsUntil"] . "';")[0]["?column?"]; // TODO SUSCEPTIBLE TO INJECTION
+                    
+                        if($continue) {
+                            $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' + '" . $i . " weeks', timestamp '" . $event["end"] .  "' + '" . $i . " weeks');",
                                 intval($calRes[0]["id"]), $event["name"]);
-                    //var_dump($res);
-                }
-                else {
-                    break;
+                        }
+                        else {
+                            $continue = false;
+                            break;
+                        }
+                    }
+                    else {
+                        $dow = $this->db->query("select extract(dow from timestamp'" . $event["start"] . "');")[0]["extract"];
+
+                        $offsets = getDayOffsets($event["repeatsOn"], $dow);
+
+                        foreach ($offsets as $key => $offset) {
+                            //var_dump($event["name"], $event["start"], $event["repeatsOn"], $offsets);
+                            $continue = "t" == $this->db->query("select (timestamp '" . $event["start"] .  "' + '" . $i . " weeks' + '" . $offset . "days') <= '" . $event["repeatsUntil"] . "';")[0]["?column?"]; // TODO SUSCEPTIBLE TO INJECTION
+                            
+                            if($continue) {
+                                $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' + '" . $i . " weeks' + '" . $offset . "days', timestamp '" . $event["end"] .  "' + '" . $i . " weeks' + '" . $offset . "days');",
+                                    intval($calRes[0]["id"]), $event["name"]);
+                            }
+                            else {
+                                $continue = false;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -52,9 +74,19 @@
         }
     }
 
-
     header("Location: ?command=account");
     return;
+
+    function getDayOffsets($str, $dow) {
+        $offsets = [];
+        $map = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
+
+        $exploded = explode(",", $str);
+        for ($i=0; $i < count($exploded); $i++) {
+            array_push($offsets, array_search($exploded[$i], $map)-$dow);
+        }
+        return $offsets;
+    }
 
     function start($explodedStr) {
         $element0 = $explodedStr[0];

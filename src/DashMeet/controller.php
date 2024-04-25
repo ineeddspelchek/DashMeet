@@ -283,11 +283,13 @@ class controller {
             $availabilities = $res[0]["hostjson"];
         }
 
-        $myCalendars = [];
-        $res = $this->db->query("select * from calendars where userID=$1;", $userID);
-        foreach ($res as $key => $cal) {
-            $myCalendars[intval($cal["id"])] = $cal;
+        $myEvents = [];
+        $res = $this->db->query("select id from calendars where userID=$1;", $userID);
+        foreach ($res as $key => $calID) {
+            $calID = intval($calID["id"]);
+            $myEvents[$calID] = $this->db->query("select * from events where calendarID=$1;", $calID);
         }
+        $myEvents = json_encode($myEvents);
 
         $res = $this->db->query("select * from membersOf where meetingID=$1;", $meetingID);
         $memberJson = $res;
