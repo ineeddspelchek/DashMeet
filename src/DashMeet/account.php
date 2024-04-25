@@ -6,6 +6,7 @@
     https://stackoverflow.com/questions/3812526/conditional-statements-in-php-code-between-html-code
     https://stackoverflow.com/questions/2680160/how-can-i-tell-which-button-was-clicked-in-a-php-form-submit
     https://www.tutorialspoint.com/how-to-remove-event-handlers-in-javascript
+    https://stackoverflow.com/questions/53594423/how-to-open-a-bootstrap-modal-without-jquery-or-bootstrap-js-javascript
 -->
 
 <!DOCTYPE html>
@@ -28,7 +29,7 @@
         <script>
             function load() {
                 if(document.getElementById('joinModal') != null)
-                    document.getElementById('joinModal').style.display = "block";
+                    new bootstrap.Modal(document.getElementById('joinModal')).show();
                 document.getElementById('meetingValidationMessage').style.display = 'none'; //$("#meetingValidationMessage").hide()
             }
 
