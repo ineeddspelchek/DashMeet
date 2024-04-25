@@ -254,6 +254,7 @@
                         <form action="?command=import" method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
                                 <button class="btn btn-primary" type="submit" name="submitImport" id="submitImport">Import New Calendar</button>
+                                <label for="import">Upload File</label>
                                 <input type="file" class="form-control" name="import" id="import" required>
                         </div>
                         </form>
