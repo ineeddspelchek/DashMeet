@@ -5,6 +5,7 @@
     https://stackoverflow.com/questions/10233550/launch-bootstrap-modal-on-page-load
     https://stackoverflow.com/questions/3812526/conditional-statements-in-php-code-between-html-code
     https://stackoverflow.com/questions/2680160/how-can-i-tell-which-button-was-clicked-in-a-php-form-submit
+    https://www.tutorialspoint.com/how-to-remove-event-handlers-in-javascript
 -->
 
 <!DOCTYPE html>
@@ -26,16 +27,18 @@
         
         <script>
             function load() {
-                $('#joinModal').modal('show');
-                $("#meetingValidationMessage").hide()
+                $('#joinModal').modal('show'); //TODO Change to JS
+                document.getElementById('meetingValidationMessage').style.display = 'none'; //$("#meetingValidationMessage").hide()
             }
 
             function save() {
             }
 
             function newMeetingContinue() {
-                start = Date.parse($("#meetingStart").val());
-                stop = Date.parse($("#meetingStop").val());
+                start = Date.parse($("#meetingStart").val()); //TODO Change to JS
+                stop = Date.parse($("#meetingStop").val()); //TODO Change to JS
+                // start = Date.parse($("#meetingStart").val());
+                // stop = Date.parse($("#meetingStop").val());
                 today = Date.now();
 
                 message = ""
@@ -50,11 +53,12 @@
                     message = "End time is before start time."
 
                 if(message != "") {
-                    $("#meetingValidationMessage").html(message)
-                    $("#meetingValidationMessage").show()
+                    let validationMessage = document.getElementById('meetingValidationMessage'); // $("#meetingValidationMessage").html(message)
+                    validationMessage.innerHTML = message;
+                    validationMessage.style.display = 'block'; //$("#meetingValidationMessage").show()
                     setTimeout(function() {
-                        $("#meetingValidationMessage").html("");
-                        $("#meetingValidationMessage").hide();
+                        validationMessage.innerHTML = "" //$("#meetingValidationMessage").html("");
+                        validationMessage.style.display = 'none'; //$("#meetingValidationMessage").hide();
                     }, 4000);
                     return false;
                 }
@@ -95,12 +99,19 @@
                     </div>
                 </form>
                 <script>
-                    $("#newMeetingContinue").on('submit', (event) => {
+                    document.getElementById('newMeetingContinue').addEventListener('submit', function handleSubmit(event) {
                         event.preventDefault();
-                        if(newMeetingContinue())
-                            $("#newMeetingContinue").off('submit');
-                            $("#newMeetingContinue").submit();
+                        if(newMeetingContinue()) {
+                            document.getElementById('newMeetingContinue').removeEventListener('submit', handleSubmit);
+                            document.getElementById('newMeetingContinue').submit();
+                        }
                     });
+                    // $("#newMeetingContinue").on('submit', (event) => {
+                    //     event.preventDefault();
+                    //     if(newMeetingContinue())
+                    //         $("#newMeetingContinue").off('submit');
+                    //         $("#newMeetingContinue").submit();
+                    // });
                 </script>
                 </div>
               </div>
