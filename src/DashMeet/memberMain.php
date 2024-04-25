@@ -362,7 +362,7 @@
                     <table class="table overflow-auto table-bordered">
                         <thead>
                             <tr class="d-flex justify-content-evenly">
-                                <th class="col-1" scope="col"></th>
+                                <th class="col-1" scope="col" style="width: 70px"></th>
                                 <th class="day-th flex-grow-1" scope="col">Su</th>
                                 <th class="day-th flex-grow-1" scope="col">M</th>
                                 <th class="day-th flex-grow-1" scope="col">Tu</th>
