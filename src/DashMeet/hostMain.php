@@ -335,15 +335,16 @@
             </span>
         </div>
 
-        <div class="modal fade" id="shareModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="shareModal" aria-hidden="true"> <!-- removed tabindex="-1" -->
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="shareModalLabel">Share Meeting</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="0"></button>
                 </div>
                 <div class="d-flex flex-column modal-body">
-                    <input type="text" readonly="readonly" value="localhost:8080/?joinID=<?=$encodedMeetingID?>"> 
+                    <label for="link">Invite Link</label>
+                    <input type="text" readonly="readonly" id="link" value="localhost:8080/?joinID=<?=$encodedMeetingID?>"> 
                     <img class="copy-icon" src="images/copy.png" alt="copy icon">
 
                     <div class="d-flex align-items-center btn btn-light gmail" onclick="window.open('<?=$url?>', '_blank')">
