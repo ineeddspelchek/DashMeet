@@ -291,8 +291,15 @@ class controller {
         }
         $myEvents = json_encode($myEvents);
 
-        $res = $this->db->query("select * from membersOf where meetingID=$1;", $meetingID);
-        $memberJson = $res;
+        $memberJson = [];
+        $res = $this->db->query("SELECT memberID, json, jsonSubmitted from membersOf where meetingID=$1;", $meetingID);
+        foreach ($res as $key => $member) {
+            if($member["jsonsubmitted"] == true) {
+                $memberID = intval($member["memberid"]);
+                $memberJson[$memberID] = $member["json"];
+            }
+        }
+        $memberJson = json_encode($res);
 
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
@@ -312,6 +319,14 @@ class controller {
         $meetingStop = $res[0]["stop"];
         $res = $this->db->query("select * from membersOf where meetingID=$1 and memberID=$2;", $_POST["meetingID"], $userID);
         $availabilities = $res[0]["json"];
+
+        $myEvents = [];
+        $res = $this->db->query("select id from calendars where userID=$1;", $userID);
+        foreach ($res as $key => $calID) {
+            $calID = intval($calID["id"]);
+            $myEvents[$calID] = $this->db->query("select * from events where calendarID=$1;", $calID);
+        }
+        $myEvents = json_encode($myEvents);
 
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";

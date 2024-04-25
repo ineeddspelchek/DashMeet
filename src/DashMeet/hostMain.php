@@ -29,6 +29,7 @@
     https://stackoverflow.com/questions/28993157/visibilitychange-event-is-not-triggered-when-switching-program-window-with-altt
     https://developer.mozilla.org/en-US/docs/Web/
     https://stackoverflow.com/questions/1090815/how-to-clone-a-date-object
+    https://stackoverflow.com/questions/1885557/simplest-code-for-array-intersection-in-javascript
 
 -->
 
@@ -66,6 +67,12 @@
             sunday.setSeconds(0);
             var availabilities = <?= $availabilities ?>["availabilities"];
             var myEvents = <?php echo $myEvents; ?>;
+            var tempMemberJson = <?php echo $memberJson; ?>;
+            var memberJson = [];
+            tempMemberJson.forEach(member => {
+                memberJson[parseInt(member["memberid"])] = JSON.parse(member["json"])["availabilities"];
+            });
+
             <?php 
             if(isset($_SESSION["makingNew"]))
                     unset($_SESSION["makingNew"]); 
@@ -77,34 +84,13 @@
                 $('#nextPage').on("click", () => changePage(1));
                 $('.inner-cell').on("dblclick", innerCellDoubleClick);
                 $('.inner-cell').on("click", innerCellClick);
-                $('.my-calendar-checkbox').on("click", funnyBusiness);
-                $('.others-calendar-checkbox').on("click", funnyBusiness2);
-
+                $('.my-calendar-checkbox').on("click", setupCal);
+                $('.others-calendar-checkbox').on("click", setupCal);
+                $('.shared-availabilities').on("click", setupCal);
+                
                 setupCal();
             }
 
-            function funnyBusiness() {
-                setupCal();
-            }
-
-            function funnyBusiness2() {
-                setupCal();
-                // if($(this).is(':checked')) {
-                //     memberJSON = "";
-                //     out = memberJSON.split("\"").filter((word) => word.length == 6);
-                //     out.forEach(element => {
-                //         $("#"+element).addClass("available");
-                //     });
-                // }
-                // else {
-                //     memberJSON = "";
-                //     out = memberJSON.split("\"").filter((word) => word.length == 6);
-                //     out.forEach(element => {
-                //         $("#"+element).removeClass("available");
-                //     });
-                // }
-                // return out;
-            }
 
             function setupCal() {
                 // CLEAR SELECTIONS
@@ -112,7 +98,25 @@
                 $(".blocked").removeClass("blocked");
                 $(".available").removeClass("available");
                 $(".ignore").removeClass("ignore");
+                $(".shared").removeClass("shared");
 
+                if($('.shared-availabilities').is(':checked')) {
+                    var intersectArr = "no";
+                    $(".others-calendar-checkbox").each(function() {
+                        if($(this).is(':checked')) {
+                            id = parseInt($(this).attr("id"));
+                            if(intersectArr == "no") {
+                                intersectArr = memberJson[id][currPage];
+                            }
+                            else {
+                                intersectArr = intersectArr.filter(value => memberJson[id][currPage].includes(value));
+                            }
+                        }
+                    });
+                    intersectArr.forEach(block => {
+                                $("#"+block).addClass("shared");
+                    });
+                }
 
                 get15Blocks(sunday, meetingStart).forEach(ignore => {
                     $("#"+ignore).addClass("ignore");
@@ -135,6 +139,15 @@
                         });
                     }
                 })
+
+                $(".others-calendar-checkbox").each(function() {
+                    if($(this).is(':checked')) {
+                        id = parseInt($(this).attr("id"));
+                        memberJson[id][currPage].forEach(element => {
+                            $("#"+element).addClass("available");
+                        });
+                    }
+                });
 
                 
                 if(currPage >= availabilities.length) {
@@ -275,8 +288,6 @@
                     return [];
                 }
 
-                console.log(stopDay, stopHour, stopRem);
-
                 if(startDay < 0) {
                     startDay = 0;
                     startHour = 0;
@@ -416,11 +427,10 @@
                         </div>
                     </div>
 
-                    <!-- <div class="d-flex flex-row align-items-center shared-availabilities-container">
-                        <input type="checkbox" class="btn-check shared-availabilities" title="shared availabilities checkbox">
-                        <label class="btn btn-outline-primary shared-availabilities"></label><br>
-                        <p class="p-0">Shared Availabilities</p>
-                    </div> -->
+                    <div class="p-2 d-flex flex-row align-items-center shared-availabilities-container">
+                        <input type="checkbox" class="shared-availabilities" title="shared availabilities checkbox">
+                        <p class="p-2">Shared Availabilities</p>
+                    </div>
 
                     <div class="d-flex flex-row align-items-center drop-down-header drop-down-header-h1">
                         <a class="btn btn-link collapse-button" onclick="$(this).hasClass('collapse-active') ? $(this).removeClass('collapse-active') : $(this).addClass('collapse-active')" data-bs-toggle="collapse" href=".collapse-2" role="button" aria-expanded="false">
@@ -430,12 +440,12 @@
                     </div>
                     <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse-2">
                         <?php 
-                        $res = $this->db->query("SELECT fullname from membersOf join ourUsers on membersOf.memberID=ourUsers.id where meetingID=$1;", $meetingID);
+                        $res = $this->db->query("SELECT fullname, id from membersOf join ourUsers on membersOf.memberID=ourUsers.id where meetingID=$1;", $meetingID);
                         foreach ($res as $key => $member) {
                         ?> 
                             <li class="list-group-item">
                                 <div class="d-flex flex-row align-items-center others-calenders-container">
-                                    <input type="checkbox" class="form-check-input others-calendar-checkbox" title="sean availabilities checkbox">
+                                    <input type="checkbox" class="form-check-input others-calendar-checkbox" id="<?=$member["id"]?>" title="sean availabilities checkbox">
                                     <p class="p-1"><?=$member["fullname"]?></p>
                                 </div>
                             </li>

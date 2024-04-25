@@ -50,6 +50,7 @@
             sunday.setMinutes(0);
             sunday.setSeconds(0);
             var availabilities = <?= $availabilities ?>["availabilities"];
+            var myEvents = <?php echo $myEvents; ?>;
 
             function load() {
                 $(".left-column-desktop >").clone().appendTo(".left-column-mobile");
@@ -57,103 +58,42 @@
                 $('#nextPage').on("click", () => changePage(1));
                 $('.inner-cell').on("dblclick", innerCellDoubleClick);
                 $('.inner-cell').on("click", innerCellClick);
-                $('.my-calendar-checkbox').on("click", funnyBusiness);
+                $('.my-calendar-checkbox').on("click", setupCal);
 
                 setupCal();
             }
 
-            function funnyBusiness() {
-                if($(this).is(':checked')) {
-                    $("#1-1200").addClass("blocked");
-                    $("#1-1215").addClass("blocked");
-                    $("#1-1230").addClass("blocked");
-                    $("#1-1245").addClass("blocked"); 
-                    $("#1-1300").addClass("blocked");
-                    $("#1-1315").addClass("blocked");
-                    $("#1-1330").addClass("blocked");
-                    $("#1-1345").addClass("blocked");
-                    $("#1-1400").addClass("blocked");
-                    $("#1-1415").addClass("blocked");
-                    $("#1-1430").addClass("blocked");
-                    $("#1-1445").addClass("blocked");
-                    $("#1-1500").addClass("blocked");
-                    $("#1-1515").addClass("blocked");
-                    $("#1-1530").addClass("blocked");
-                    $("#1-1545").addClass("blocked");
-
-                    
-                    $("#2-1200").addClass("blocked");
-                    $("#2-1215").addClass("blocked");
-                    $("#2-1230").addClass("blocked");
-                    $("#2-1245").addClass("blocked");
-
-                    $("#4-1200").addClass("blocked");
-                    $("#4-1215").addClass("blocked");
-                    $("#4-1230").addClass("blocked");
-                    $("#4-1245").addClass("blocked");
-
-                    $("#2-1400").addClass("blocked");
-                    $("#2-1415").addClass("blocked");
-                    $("#2-1430").addClass("blocked");
-                    $("#2-1445").addClass("blocked");
-                    $("#2-1500").addClass("blocked");
-                    $("#2-1515").addClass("blocked");
-
-                    $("#4-1400").addClass("blocked");
-                    $("#4-1415").addClass("blocked");
-                    $("#4-1430").addClass("blocked");
-                    $("#4-1445").addClass("blocked");
-                    $("#4-1500").addClass("blocked");
-                    $("#4-1515").addClass("blocked");
-                }
-                else {
-                    $("#1-1200").removeClass("blocked");
-                    $("#1-1215").removeClass("blocked");
-                    $("#1-1230").removeClass("blocked");
-                    $("#1-1245").removeClass("blocked"); 
-                    $("#1-1300").removeClass("blocked");
-                    $("#1-1315").removeClass("blocked");
-                    $("#1-1330").removeClass("blocked");
-                    $("#1-1345").removeClass("blocked");
-                    $("#1-1400").removeClass("blocked");
-                    $("#1-1415").removeClass("blocked");
-                    $("#1-1430").removeClass("blocked");
-                    $("#1-1445").removeClass("blocked");
-                    $("#1-1500").removeClass("blocked");
-                    $("#1-1515").removeClass("blocked");
-                    $("#1-1530").removeClass("blocked");
-                    $("#1-1545").removeClass("blocked");
-
-                    
-                    $("#2-1200").removeClass("blocked");
-                    $("#2-1215").removeClass("blocked");
-                    $("#2-1230").removeClass("blocked");
-                    $("#2-1245").removeClass("blocked");
-
-                    $("#4-1200").removeClass("blocked");
-                    $("#4-1215").removeClass("blocked");
-                    $("#4-1230").removeClass("blocked");
-                    $("#4-1245").removeClass("blocked");
-
-                    $("#2-1400").removeClass("blocked");
-                    $("#2-1415").removeClass("blocked");
-                    $("#2-1430").removeClass("blocked");
-                    $("#2-1445").removeClass("blocked");
-                    $("#2-1500").removeClass("blocked");
-                    $("#2-1515").removeClass("blocked");
-
-                    $("#4-1400").removeClass("blocked");
-                    $("#4-1415").removeClass("blocked");
-                    $("#4-1430").removeClass("blocked");
-                    $("#4-1445").removeClass("blocked");
-                    $("#4-1500").removeClass("blocked");
-                    $("#4-1515").removeClass("blocked");
-                }
-            }
 
             function setupCal() {
                 // CLEAR SELECTIONS
                 $(".selected").removeClass("selected");
+                $(".blocked").removeClass("blocked");
+                $(".available").removeClass("available");
+                $(".ignore").removeClass("ignore");
+
+
+                get15Blocks(sunday, meetingStart).forEach(ignore => {
+                    $("#"+ignore).addClass("ignore");
+                });
+
+                let tempDate = new Date(sunday);
+                tempDate.setDate(sunday.getDate() + 7);
+                get15Blocks(meetingStop, tempDate).forEach(ignore => {
+                    $("#"+ignore).addClass("ignore");
+                });
+
+                $(".my-calendar-checkbox").each(function() {
+                    if($(this).is(':checked')) {
+                        id = parseInt($(this).attr("id"));
+                        myEvents[id].forEach(event => {
+                            blocks = get15Blocks(new Date(event["start"]), new Date(event["stop"]));
+                            blocks.forEach(block => {
+                                $("#"+block).addClass("blocked");
+                            });
+                        });
+                    }
+                })
+
                 
                 if(currPage >= availabilities.length) {
                     availabilities.push([]);
@@ -177,7 +117,7 @@
                     $("#prevPage").removeClass("disabled");
                 }
 
-                let tempDate = new Date(sunday);
+                tempDate = new Date(sunday);
                 tempDate.setDate(sunday.getDate() + 7);
                 if(tempDate >= meetingStop) {
                     $("#nextPage").addClass("disabled");
@@ -244,19 +184,66 @@
             }
 
             function get15Blocks(start, stop) {
+                let startCopy = new Date(start.valueOf());
+                let stopCopy = new Date(stop.valueOf());
+
+                if(start >= stop) {
+                    return [];
+                }
                 blocks = [];
-                startDay = Math.floor((start - sunday) / DAY_IN_SECS);
-                stopDay = Math.floor((stop - sunday) / DAY_IN_SECS);
+                let startDay = Math.floor((start - sunday) / DAY_IN_SECS);
+                let stopDay = Math.floor((stop - sunday) / DAY_IN_SECS);
 
                 if(startDay != stopDay) {
+                    out = [];
 
+                    startEnd = new Date(start.valueOf());
+                    startEnd.setHours(23);
+                    startEnd.setMinutes(45);
+                    out = out.concat(get15Blocks(start, startEnd));
+
+                    let tempDate2 = new Date(start.valueOf());
+                    tempDate2.setHours(0);
+                    tempDate2.setMinutes(0);
+                    for (let i = startDay+1; i < stopDay; i++) {
+                        tempDate2.setDate(tempDate2.getDate() + 1);
+                        tempDate3 = new Date(tempDate2.valueOf());
+                        tempDate3.setHours(23);
+                        tempDate3.setMinutes(50);
+                        out = out.concat(get15Blocks(tempDate2, tempDate3));
+                    }
+
+                    stopStart = new Date(stop.valueOf());
+                    stopStart.setHours(0);
+                    stopStart.setMinutes(0);
+                    out = out.concat(get15Blocks(stopStart, stop));
+
+                    return out; 
                 }
 
                 startHour = Math.floor((((start - sunday) / DAY_IN_SECS) - startDay ) * 24);
+
                 stopHour = Math.floor((((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24);
+
                 startRem = (((start - sunday) / DAY_IN_SECS) - startDay ) * 24 - startHour;
+
                 stopRem = (((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24 - stopHour;
-                
+
+                if((startDay < 0 && stopDay < 0) || (startDay > 7 && startDay > 7)){
+                    return [];
+                }
+
+                if(startDay < 0) {
+                    startDay = 0;
+                    startHour = 0;
+                    startRem = 0;
+                }
+                if(stopDay > 7) {
+                    stopDay = 7;
+                    stopHour = 23;
+                    stopRem = 45;
+                }
+
                 if(startRem >= .75)
                     startSub = 45;
                 else if(startRem >= .5)
@@ -275,18 +262,32 @@
                 else
                     stopSub = 0;
 
+                startHour = startHour;
+                startRem = startRem;
                 hour = startHour;
-                rem = startRem;
-                while(hour !== stopHour && rem !== stopRem) {
-                    blocks.push("" + startDay + "-" + hour.toString().padStart(2, "0") + rem.toString().padStart(2, "0"));
-                    rem += 15;
+                rem = startRem * 60 - startRem * 60 % 15;
+
+                while(hour != stopHour || rem != stopSub) {
+                    tempH = (""+hour).padStart(2, "0");
+                    tempR = (""+rem).padStart(2, "0");
+                    blocks.push("" + startDay + "-" + tempH + tempR);
+                    rem = rem + 15;
                     if(rem == 60) {
-                        hour++;
+                        hour = parseInt(hour) + 1;
                         rem = 0;
                     }
-                    console.log(hour, stopHour, rem, stopRem)
                 }
-                console.log(blocks);
+
+                //DO IT ONE MORE TIME
+                tempH = (""+hour).padStart(2, "0");
+                tempR = (""+rem).padStart(2, "0");
+                blocks.push("" + startDay + "-" + tempH + tempR);
+                rem = rem + 15;
+                if(rem == 60) {
+                    hour = parseInt(hour) + 1;
+                    rem = 0;
+                }
+
                 return blocks;
             }
         </script>
