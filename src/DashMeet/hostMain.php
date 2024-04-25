@@ -270,11 +270,12 @@
                 startRem = (((start - sunday) / DAY_IN_SECS) - startDay ) * 24 - startHour;
 
                 stopRem = (((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24 - stopHour;
-                console.log(stopDay, stopHour, stopRem);
 
                 if((startDay < 0 && stopDay < 0) || (startDay > 7 && startDay > 7)){
                     return [];
                 }
+
+                console.log(stopDay, stopHour, stopRem);
 
                 if(startDay < 0) {
                     startDay = 0;
@@ -308,7 +309,7 @@
                 startHour = startHour;
                 startRem = startRem;
                 hour = startHour;
-                rem = startRem - startRem % 15;
+                rem = startRem * 60 - startRem * 60 % 15;
 
                 while(hour != stopHour || rem != stopSub) {
                     tempH = (""+hour).padStart(2, "0");
@@ -338,7 +339,6 @@
     </head>
     <body onload="load();">
         <?php include("header.php"); ?>
-        <!-- <pre><?php var_dump($myEvents); ?></pre> -->
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
