@@ -2,6 +2,8 @@
 // By Henry Newton
 // Sources:
 // https://stackoverflow.com/questions/2944297/postgresql-function-for-last-inserted-id
+// https://stackoverflow.com/questions/4142809/simple-php-post-redirect-get-code-example
+// https://www.phptutorial.net/php-tutorial/php-prg/
 
 class controller {
     private $db;
@@ -247,11 +249,12 @@ class controller {
         $name = $_SESSION["name"];
 
         # creating new meeting
-        if(isset($_POST["meetingName"])) { 
+        if(isset($_POST["meetingName"]) && isset($_SESSION["makingNew"])) { 
             $res = $this->db->query("insert into meetings (name, hostID, start, stop) values ($1, $2, $3, $4) returning *;",
                                     $_POST["meetingName"], $userID, $_POST["meetingStart"], $_POST["meetingStop"]);
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
+            $_SESSION["meetingID"] = $meetingID;
             $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingName = urlencode($res[0]["name"]);
             $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
@@ -263,9 +266,13 @@ class controller {
         }
 
         # viewing meeting that was already made
-        if(isset($_POST["meetingID"])) {
-            $res = $this->db->query("select * from meetings where id=$1;", $_POST["meetingID"]);
-            $meetingID = intval($_POST["meetingID"]);
+        else {
+            if(isset($_POST["meetingID"]))
+                $meetingID = intval($_POST["meetingID"]);
+            else 
+                $meetingID = intval($_SESSION["meetingID"]);
+
+            $res = $this->db->query("select * from meetings where id=$1;", $meetingID);
             $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingName = urlencode($res[0]["name"]);
             $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
@@ -283,7 +290,7 @@ class controller {
         }
 
         $res = $this->db->query("select * from membersOf where meetingID=$1;", $meetingID);
-        $memberJson = $res[0]["json"];
+        $memberJson = $res;
 
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";

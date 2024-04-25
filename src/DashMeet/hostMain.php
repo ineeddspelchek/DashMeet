@@ -51,6 +51,7 @@
         <script>
             addEventListener("beforeunload", (event) => {
                 event.preventDefault();
+
                 save();
             })
             var DAY_IN_SECS = 86400000;
@@ -63,6 +64,10 @@
             sunday.setMinutes(0);
             sunday.setSeconds(0);
             var availabilities = <?= $availabilities ?>["availabilities"];
+            <?php 
+            if(isset($_SESSION["makingNew"]))
+                    unset($_SESSION["makingNew"]); 
+            ?>
 
             function load() {
                 $(".left-column-desktop >").clone().appendTo(".left-column-mobile");
@@ -167,14 +172,14 @@
 
             function funnyBusiness2() {
                 if($(this).is(':checked')) {
-                    memberJSON = "<?=addslashes($memberJson)?>";
+                    memberJSON = "";
                     out = memberJSON.split("\"").filter((word) => word.length == 6);
                     out.forEach(element => {
                         $("#"+element).addClass("available");
                     });
                 }
                 else {
-                    memberJSON = "<?=addslashes($memberJson)?>";
+                    memberJSON = "";
                     out = memberJSON.split("\"").filter((word) => word.length == 6);
                     out.forEach(element => {
                         $("#"+element).removeClass("available");
@@ -326,7 +331,7 @@
     </head>
     <body onload="load();">
         <?php include("header.php"); ?>
-        <!-- <pre><?php var_dump($myCalendars); ?></pre> -->
+        <pre><?php var_dump($memberJson); ?></pre>
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
@@ -388,7 +393,7 @@
                                 <p>File Calendars</p>
                             </div>
                             <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse-1-1">
-                                <?php 
+                                <?php
                                 $res = $this->db->query("SELECT name, id FROM calendars where userID=$1;",$userID);
                                 foreach ($res as $key => $calendar) {
                                     if(isset($calendar["name"])) {
