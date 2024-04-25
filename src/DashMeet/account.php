@@ -27,7 +27,8 @@
         
         <script>
             function load() {
-                $('#joinModal').modal('show'); //TODO Change to JS
+                if(document.getElementById('joinModal') != null)
+                    document.getElementById('joinModal').style.display = "block";
                 document.getElementById('meetingValidationMessage').style.display = 'none'; //$("#meetingValidationMessage").hide()
             }
 
@@ -35,8 +36,9 @@
             }
 
             function newMeetingContinue() {
-                start = Date.parse($("#meetingStart").val()); //TODO Change to JS
-                stop = Date.parse($("#meetingStop").val()); //TODO Change to JS
+                start = Date.parse(document.getElementById("meetingStart").value); 
+                stop = Date.parse(document.getElementById("meetingStop").value); 
+                console.log(start);
                 // start = Date.parse($("#meetingStart").val());
                 // stop = Date.parse($("#meetingStop").val());
                 today = Date.now();
@@ -102,7 +104,7 @@
                     document.getElementById('newMeetingContinue').addEventListener('submit', function handleSubmit(event) {
                         event.preventDefault();
                         if(newMeetingContinue()) {
-                            <?=$_SESSION["makingNew"] = true;?>
+                            nothingVariable = <?=$_SESSION["makingNew"] = true;?>;
                             document.getElementById('newMeetingContinue').removeEventListener('submit', handleSubmit);
                             document.getElementById('newMeetingContinue').submit();
                         }

@@ -201,7 +201,12 @@ class controller {
         else if(isset($_SESSION["joinID"])) {
             $joinID = $_SESSION["joinID"];
             $res = $this->db->query("select * from meetings join ourUsers on meetings.hostID=ourUsers.id where meetings.id=$1;", $joinID);
-            $_SESSION["meeting"] = $res[0];
+            if(isset($res[0])) {
+                $_SESSION["meeting"] = $res[0];
+            }
+            else {
+                unset($joinID);
+            }
         }
 
         include("/opt/src/DashMeet/account.php");
