@@ -510,7 +510,7 @@
                     <textarea class="description-entry" name="desc-entry" title="description entry box"></textarea> -->
 
                     <button class="btn btn-dark share-button" type="button" data-bs-toggle="modal" data-bs-target="#shareModal">Invite More</button>
-                    <!-- <button class="btn btn-success book-button" type="button" disabled>Book Meeting</button> -->
+                    <button class="btn btn-success book-button" type="button">Book Meeting</button>
                 </div>
             </div>
         </div>

@@ -297,7 +297,7 @@
 
         <div class="row justify-content-between subheader">
             <span class="meeting-name">
-                General Availability Scheduler
+                Meeting
             </span>
         </div>
 
@@ -325,20 +325,18 @@
                                 <p>File Calendars</p>
                             </div>
                             <ul class="collapse collapse-body list-group others-calendars-collapse-body collapse-1-1">
-                                <li class="list-group-item">
-                                    <div class="d-flex flex-row align-items-center others-calenders-container">
-                                        <input type="checkbox" class="btn-check others-calenders" title="sean availabilities checkbox">
-                                        <label class="btn btn-outline-warning others-calenders"></label><br>
-                                        <p class="p-0">March Madness</p>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="d-flex flex-row align-items-center others-calendars-container">
-                                        <input type="checkbox" class="btn-check others-calenders" title="henry availabilities checkbox">
-                                        <label class="btn btn-outline-success others-calenders"></label><br>
-                                        <p class="p-0">Birthdays</p>
-                                    </div>
-                                </li>
+                                <?php 
+                                $res = $this->db->query("SELECT name, id FROM calendars where userID=$1;",$userID);
+                                foreach ($res as $key => $calendar) {
+                                    if(isset($calendar["name"])) {
+                                ?>
+                                    <li class="list-group-item">
+                                        <div class="d-flex flex-row align-items-center others-calenders-container">
+                                            <input type="checkbox" class="form-check-input my-calendar-checkbox" id="<?=$calendar["id"]?>" title="sean availabilities checkbox">
+                                            <p class="p-1"><?=$calendar["name"]?></p>
+                                        </div>
+                                    </li>
+                                <?php }}?>
                             </ul>
                         </div>
                     </div>

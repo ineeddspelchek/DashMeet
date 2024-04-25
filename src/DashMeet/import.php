@@ -39,7 +39,7 @@
                 if($continue) {
                     $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' + '" . $i . " weeks', timestamp '" . $event["end"] .  "' + '" . $i . " weeks');",
                                 intval($calRes[0]["id"]), $event["name"]);
-                    var_dump($res);
+                    //var_dump($res);
                 }
                 else {
                     break;
@@ -53,7 +53,7 @@
     }
 
 
-    //header("Location: ?command=account");
+    header("Location: ?command=account");
     return;
 
     function start($explodedStr) {

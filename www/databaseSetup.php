@@ -81,7 +81,7 @@
     assert($res !== false);
 
     $res  = pg_query($dbHandle, "create table membersOf (
-        meetingID int references meetings(id),
+        meetingID int references meetings(id) ON DELETE CASCADE,
         memberID int references ourUsers(id),
         json text default '{\"availabilities\": []}',
         jsonSubmitted boolean default false,
