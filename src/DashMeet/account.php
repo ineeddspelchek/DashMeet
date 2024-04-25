@@ -102,6 +102,7 @@
                     document.getElementById('newMeetingContinue').addEventListener('submit', function handleSubmit(event) {
                         event.preventDefault();
                         if(newMeetingContinue()) {
+                            <?=$_SESSION["makingNew"] = true;?>
                             document.getElementById('newMeetingContinue').removeEventListener('submit', handleSubmit);
                             document.getElementById('newMeetingContinue').submit();
                         }
@@ -265,8 +266,8 @@
                         <form action="?command=import" method="post" enctype="multipart/form-data">
                             <div class="input-group mb-3">
                                 <button class="btn btn-primary" type="submit" name="submitImport" id="submitImport">Import New Calendar</button>
-                                <label for="import">Upload File</label>
-                                <input type="file" class="form-control" name="import" id="import" required>
+                                <!-- <label for="import">Upload File</label> -->
+                                <input type="file" class="form-control" name="import" id="import" aria-label="Upload File" required>
                         </div>
                         </form>
                         <?php 
