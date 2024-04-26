@@ -16,7 +16,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 spl_autoload_register(function ($classname) {
-        include "/opt/src/DashMeet/$classname.php";
+        include "/students/han5jn/students/han5jn/DashMeet/$classname.php";
 });
 
 $controller = new controller($_GET);

@@ -113,9 +113,11 @@
                             }
                         }
                     });
-                    intersectArr.forEach(block => {
+                    if(intersectArr != "no") {
+                        intersectArr.forEach(block => {
                                 $("#"+block).addClass("shared");
-                    });
+                        });
+                    }
                 }
 
                 get15Blocks(sunday, meetingStart).forEach(ignore => {
@@ -367,7 +369,7 @@
                 </div>
                 <div class="d-flex flex-column modal-body">
                     <label for="link">Invite Link</label>
-                    <input type="text" readonly="readonly" id="link" value="localhost:8080/?joinID=<?=$encodedMeetingID?>"> 
+                    <input type="text" readonly="readonly" id="link" value="https://cs4640.cs.virginia.edu/han5jn/?joinID=<?=$encodedMeetingID?>"> 
                     <img class="copy-icon" src="images/copy.png" alt="copy icon">
 
                     <div class="d-flex align-items-center btn btn-light gmail" onclick="window.open('<?=$url?>', '_blank')">

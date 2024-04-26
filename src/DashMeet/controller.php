@@ -147,7 +147,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/register.php");
+        include("/students/han5jn/students/han5jn/DashMeet/register.php");
     }
 
 
@@ -167,7 +167,7 @@ class controller {
             $_SESSION["joinID"] = intval($decodedMeetingID);
         }
 
-        include("/opt/src/DashMeet/welcome.php");
+        include("/students/han5jn/students/han5jn/DashMeet/welcome.php");
     }
 
     public function account() {
@@ -209,7 +209,7 @@ class controller {
             }
         }
 
-        include("/opt/src/DashMeet/account.php");
+        include("/students/han5jn/students/han5jn/DashMeet/account.php");
     }
 
     public function import() {
@@ -220,7 +220,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/import.php");
+        include("/students/han5jn/students/han5jn/DashMeet/import.php");
     }
 
     public function getJSON() {
@@ -232,7 +232,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/getJSON.php");
+        include("/students/han5jn/students/han5jn/DashMeet/getJSON.php");
     }
     
     public function viewEvents() {
@@ -244,7 +244,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/viewEvents.php");
+        include("/students/han5jn/students/han5jn/DashMeet/viewEvents.php");
     }
 
     public function hostMain() {
@@ -263,7 +263,7 @@ class controller {
             $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingName = urlencode($res[0]["name"]);
             $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
-            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "localhost:8080/?joinID=" . $encodedMeetingID;
+            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "https://cs4640.cs.virginia.edu/han5jn/?joinID=" . $encodedMeetingID;
             $url = $emaillink1 . $meetingName . $emaillink2;
             $meetingStart = $_POST["meetingStart"];
             $meetingStop = $_POST["meetingStop"];
@@ -281,7 +281,7 @@ class controller {
             $encodedMeetingID = urlencode(base64_encode($meetingID));
             $meetingName = urlencode($res[0]["name"]);
             $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
-            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "localhost:8080/?joinID=" . $encodedMeetingID;
+            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "https://cs4640.cs.virginia.edu/han5jn/?joinID=" . $encodedMeetingID;
             $url = $emaillink1 . $meetingName . $emaillink2;
             $meetingStart = $res[0]["start"];
             $meetingStop = $res[0]["stop"];
@@ -309,7 +309,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/hostMain.php");
+        include("/students/han5jn/students/han5jn/DashMeet/hostMain.php");
     }
 
     public function memberMain() {
@@ -336,7 +336,7 @@ class controller {
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         }
-        include("/opt/src/DashMeet/memberMain.php");
+        include("/students/han5jn/students/han5jn/DashMeet/memberMain.php");
     }
 
 }

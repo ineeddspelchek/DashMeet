@@ -230,7 +230,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $res = $this->db->query("select * from meetings natural join membersOf where memberID=$1",
+                                        $res = $this->db->query("select * from meetings join membersof on meetings.id=membersof.meetingid where memberID=$1",
                                         $userID);
                                         
                                         foreach ($res as $key => $meeting) {
@@ -273,7 +273,7 @@
                                 <input type="file" class="form-control" name="import" id="import" aria-label="Upload File" required>
                         </div>
                         </form>
-                        <?php 
+                        <?php
                             $res = $this->db->query("SELECT name, id FROM calendars where userID=$1;",$userID);
                             foreach ($res as $i => $cal) {
                                 if($res[$i]["name"] !== NULL) {
