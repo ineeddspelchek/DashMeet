@@ -1,3 +1,18 @@
+<?php // If ajax requested, fulfill the request and then leave before anything else gets put in the response
+    if(isset($_POST["AjaxRequest"])) {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
+        header("Access-Control-Max-Age: 1000");
+        header("Access-Control-Allow-Methods: GET, OPTIONS");
+
+        header('Content-Type: application/json; charset=utf-8');
+        $res = $this->db->query("select json from calendars where id=$1",
+                                intval($_POST["id"]));
+        echo json_encode($res);
+        return;
+    }
+?>
+
 <?php 
 //Sources:
     // https://stackoverflow.com/questions/8251426/insert-string-at-specified-position
@@ -15,43 +30,30 @@
     <link rel="stylesheet/less" type="text/css" href="styles/main.less?ts=\<\?=filemtime('style.css')?"/>
     <script src="less.js" type="text/javascript"></script>
     <script src="jquery.js" type="text/javascript"></script>
+
+    <script>
+        function load() {
+            console.log("AAAHH")
+            $.ajax({
+                method: "POST",
+                data: { "AjaxRequest": true, "id": <?=$id?> }
+            }).done((x) => {
+                x = JSON.parse(x[0]["json"])["events"];
+                x.forEach(element => {
+                    $("div").append("<p>" + element["name"] + "</p>")
+                });
+            }); 
+        }
+
+    </script>
 </head>
-<body>
+<body onload="load();">
     <?php include("header.php"); ?>
 
     <div style="padding-left:10px; padding-top:10px">
         <form action="?command=account" method="post" style="margin-top:10px; margin-bottom:10px">
             <a href="?command=account" class="btn btn-danger">Back</a>
         </form>
-        <?php
-
-        $res = $this->db->query("select json from calendars where id=$1",
-                                $id);
-        $JSONArr = (array) json_decode($res[0]["json"]);
-
-        $events = $JSONArr["events"];
-        foreach ($events as $i => $event) {
-            $event = (array) $event; 
-            echo "<p>" . $event["name"] . ": " . formatTimes($event["start"]) . "  -  ". formatTimes($event["end"]) . "</p>";
-        }
-
-        function formatTimes($inp) {
-            $out = $inp;
-            if(str_contains($out, "T")) {
-                $out = substr_replace($out, ":", 13, 0);
-                $out = substr_replace($out, ":", 11, 0);
-                $out = substr_replace($out, "/", 6, 0);
-                $out = substr_replace($out, "/", 4, 0);
-                $out = str_replace("T", " ", $out);
-                $out = str_replace("Z", "", $out);
-            }  
-            else {
-                $out = substr_replace($out, "/", 6, 0);
-                $out = substr_replace($out, "/", 4, 0);
-            }
-            return "(" . $out . ")";
-        }
-        ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>    

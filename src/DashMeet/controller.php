@@ -239,7 +239,8 @@ class controller {
         $message = "";
         $userID = $_SESSION["userID"];
         $email = $_SESSION["email"];
-        $id = $_POST["getID"];
+        if(isset($_POST["getID"]))
+            $id = $_POST["getID"];
 
         if (!empty($this->errorMessage)) {
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
