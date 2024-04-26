@@ -1,3 +1,10 @@
+<?php 
+ 
+// Sources: 
+// https://stackoverflow.com/questions/4036857/how-can-i-remove-a-style-added-with-css-function 
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -5,12 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Sean Katauskas">
     <meta name="description" content="">  
-    <title></title>
+    <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"  crossorigin="anonymous">       
     <script src="jquery.js" type="text/javascript"></script>
     
     <script>
         function load() {
+            $(".btn").on("mouseenter", function() {
+                $(this).css("transform", "skewY(10deg)");
+            });
+            $(".btn").on("mouseleave", function() {
+                $(this).css("transform", "");
+            });
         }
 
         function save() {
@@ -45,7 +58,7 @@
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" id="register" class="btn btn-primary">Register</button>
                     <a href="?command=welcome" class="btn btn-danger">Back</a>
                 </form>
                 </div>
