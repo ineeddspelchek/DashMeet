@@ -10,11 +10,11 @@
     ini_set("display_errors", 1);
 
     // Note that these are for the local Docker container
-    $host = "localhost";
-    $port = "5432";
-    $database = "han5jn";
-    $user = "han5jn";
-    $password = "lfSPQ9jbVYGr";
+    $host = "nope";
+    $port = "nope";
+    $database = "nope";
+    $user = "nope";
+    $password = "nope";
 
     $dbHandle = pg_pconnect("host=$host port=$port dbname=$database user=$user password=$password");
 
