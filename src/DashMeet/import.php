@@ -6,12 +6,13 @@
     // https://www.geeksforgeeks.org/what-is-stdclass-in-php/
     // https://stackoverflow.com/questions/10542310/how-can-i-get-the-last-7-characters-of-a-php-string
     // https://stackoverflow.com/questions/13676168/how-can-i-insert-timestamp-with-timezone-in-postgresql-with-prepared-statement
-    // 
+    // https://stackoverflow.com/questions/65200620/bind-message-supplies-2-parameters-but-prepared-statement-requires-1 
     
     // By Henry Newton
 
     $importStr = file_get_contents($_FILES["import"]["tmp_name"], true);
     $explodedStr = explode("BEGIN:VEVENT", $importStr);
+    $timezone = 'UTC';
 
     $outJSON = start($explodedStr);
     for ($i=1; $i < count($explodedStr); $i++) { 
@@ -20,7 +21,7 @@
     $outJSON = rtrim($outJSON, ","); #remove comma added by last event
     $outJSON .= close();
 
-    $JSONArr = (array) json_decode($outJSON); 
+    $JSONArr = (array) json_decode($outJSON);
 
     //header('Content-Type: application/json; charset=utf-8');
     //echo $outJSON;
@@ -37,11 +38,11 @@
                     $continue = true;
 
                     if($event["repeatsOn"] == "") {
-                        $continue = "t" == $this->db->query("select (timestamp '" . $event["start"] .  "' + '" . $i . " weeks') <= '" . $event["repeatsUntil"] . "';")[0]["?column?"]; // TODO SUSCEPTIBLE TO INJECTION
+                        $continue = "t" == $this->db->query("select (timestamp '$1' + '" . $i . " weeks') <= '$2';", $event["start"], $event["repeatsUntil"])[0]["?column?"];
                     
                         if($continue) {
-                            $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' at time zone '" . $event["timezone"] . "' at time zone 'America/New_York' + '" . $i . " weeks', timestamp '" . $event["end"] .  "' at time zone '" . $event["timezone"] . "' at time zone 'America/New_York' + '" . $i . " weeks');",
-                                intval($calRes[0]["id"]), $event["name"]);
+                            $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp $3 at time zone $4 at time zone 'America/New_York' + '" . $i . " weeks', timestamp $5 at time zone $4 at time zone 'America/New_York' + '" . $i . " weeks');",
+                                intval($calRes[0]["id"]), $event["name"], "'" . $event["start"] . "'", $event["timezone"], "'" . $event["end"] . "'");
                         }
                         else {
                             $continue = false;
@@ -54,11 +55,12 @@
                         $offsets = getDayOffsets($event["repeatsOn"], $dow);
 
                         foreach ($offsets as $key => $offset) {
-                            $continue = "t" == $this->db->query("select (timestamp '" . $event["start"] .  "' + '" . $i . " weeks' + '" . $offset . "days') <= '" . $event["repeatsUntil"] . "';")[0]["?column?"]; // TODO SUSCEPTIBLE TO INJECTION
+                            $continue = "t" == $this->db->query("select (timestamp '$1' + '" . $i . " weeks' + '" . $offset . "days') <= '$2';",
+                                $event["start"], $event["repeatsUntil"])[0]["?column?"];
                             
                             if($continue) {
-                                $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] .  "' at time zone '" . $event["timezone"] . "' at time zone 'America/New_York' + '" . $i . " weeks' + '" . $offset . "days', timestamp '" . $event["end"] .  "' at time zone '" . $event["timezone"] . "' at time zone 'America/New_York' + '" . $i . " weeks' + '" . $offset . "days');",
-                                    intval($calRes[0]["id"]), $event["name"]);
+                                $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp $3 at time zone $4 at time zone 'America/New_York' + '" . $i . " weeks' + '" . $offset . "days', timestamp $5 at time zone $4 at time zone 'America/New_York' + '" . $i . " weeks' + '" . $offset . "days');",
+                                    intval($calRes[0]["id"]), $event["name"], "'" . $event["start"] . "'", $event["timezone"], "'" . $event["end"] . "'");
                             }
                             else {
                                 $continue = false;
@@ -70,8 +72,8 @@
             }
         }
         else {
-            $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, timestamp '" . $event["start"] . "' at time zone '" . $event["timezone"] . "' at time zone 'America/New_York' , timestamp '" . $event["end"] . "' at time zone '" . $event["timezone"] . "' at time zone 'America/New_York');",
-                                intval($calRes[0]["id"]), $event["name"]); // TODO: SUSCEPTIBLE TO INJECTION
+            $res = $this->db->query("insert into events (calendarID, name, start, stop) values ($1, $2, $3 at time zone $4 at time zone 'America/New_York', $5 at time zone $4 at time zone 'America/New_York');",
+                                intval($calRes[0]["id"]), $event["name"], "'" . $event["start"] . "'", $event["timezone"], "'" . $event["end"] . "'");
         }
     }
 
@@ -90,6 +92,7 @@
     }
 
     function start($explodedStr) {
+        global $timezone;
         $element0 = $explodedStr[0];
         $out = "{";
         preg_match("/\nX-WR-CALNAME:.*\n/", $element0, $nameReg);
@@ -100,10 +103,14 @@
         $out .= "\"name\": \"" . addcslashes(trim(explode(":", $name)[1]), "\\") . "\",";
         $out .= "\"timezone\": \"" . addcslashes(trim(explode(":", $timezone)[1]), "\\") . "\",";
         $out .= "\"events\": " . "[";
+
+        $timezone = trim(explode(":", $timezone)[1]);
         return $out;
     }
 
     function addEvent($inp) {
+        global $timezone;
+
         if(preg_match("/\nDTSTART.*\n/", $inp, $testReg)) {
             if(!str_contains(substr($testReg[0], -10), "T")) {
                 return "";
@@ -118,13 +125,8 @@
         }
 
         //TZID=America/New_York:
-        if(preg_match("/TZID=(.*):/", $inp, $timeZoneReg)) {
-            $timezone = $timeZoneReg[1];
-            $out .= "\n\"timezone\": \"" . $timezone . "\",";
-        }
-        else {
-            $out .= "\n\"timezone\": \"UTC\",";
-        }
+        var_dump($timezone);
+        $out .= "\n\"timezone\": \"" . $timezone . "\",";
 
         if(preg_match("/\nDTSTART:.*\n/", $inp, $startReg)) {
             $start = $startReg[0];
