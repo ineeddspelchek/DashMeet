@@ -5,7 +5,6 @@
  * Contains connection information to query PostgresSQL.
  */
 
-
 class Database {
     private $dbConnector;
 
