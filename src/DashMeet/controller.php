@@ -4,6 +4,7 @@
 // https://stackoverflow.com/questions/2944297/postgresql-function-for-last-inserted-id
 // https://stackoverflow.com/questions/4142809/simple-php-post-redirect-get-code-example
 // https://www.phptutorial.net/php-tutorial/php-prg/
+// https://www.geeksforgeeks.org/how-to-encrypt-and-decrypt-a-php-string/
 
 class controller {
     private $db;
@@ -163,7 +164,8 @@ class controller {
         }
 
         if(isset($_GET["joinID"])) {
-            $decodedMeetingID = base64_decode(urldecode($_GET["joinID"]));
+            $decodedMeetingID = openssl_decrypt($_GET["joinID"], "AES-128-CTR", "hopefullySecure", $options = 0, $iv = '3262560861013191');
+            $decodedMeetingID = substr($decodedMeetingID, 0, strlen($decodedMeetingID)/20);
             $_SESSION["joinID"] = intval($decodedMeetingID);
         }
 
@@ -260,10 +262,29 @@ class controller {
             unset($_POST["meetingName"]);
             $meetingID = intval($res[0]["id"]);
             $_SESSION["meetingID"] = $meetingID;
-            $encodedMeetingID = urlencode(base64_encode($meetingID));
+ 
+            $encodedMeetingID = urlencode(openssl_encrypt(str_repeat(strval($meetingID), 20), "AES-128-CTR", "hopefullySecure", 0, '3262560861013191'));
+            $encodedMeetingID = str_replace("%", "%25", $encodedMeetingID);
+
             $meetingName = urlencode($res[0]["name"]);
             $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
-            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "localhost:8080/?joinID=" . $encodedMeetingID;
+            
+            // https://www.geeksforgeeks.org/get-the-full-url-in-php/
+            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+                $link = "https";
+            else
+                $link = "http";
+                
+            // Here append the common URL characters.
+            $link .= "://";
+            
+            // Append the host(domain name, ip) to the URL.
+            $link .= $_SERVER['HTTP_HOST'];
+            
+            // Append the requested resource location to the URL
+            $link .= $_SERVER['PHP_SELF'];
+
+            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . $link . "?joinID=" . $encodedMeetingID;
             $url = $emaillink1 . $meetingName . $emaillink2;
             $meetingStart = $_POST["meetingStart"];
             $meetingStop = $_POST["meetingStop"];
@@ -278,10 +299,29 @@ class controller {
                 $meetingID = intval($_SESSION["meetingID"]);
 
             $res = $this->db->query("select * from meetings where id=$1;", $meetingID);
-            $encodedMeetingID = urlencode(base64_encode($meetingID));
+            
+            $encodedMeetingID = urlencode(openssl_encrypt(str_repeat(strval($meetingID), 20), "AES-128-CTR", "hopefullySecure", 0, '3262560861013191'));
+            $encodedMeetingID = str_replace("%", "%25", $encodedMeetingID);
+
             $meetingName = urlencode($res[0]["name"]);
             $emaillink1 = "https://mail.google.com/mail/?view=cm&ui=2&tf=0&fs=1&su=";
-            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . "localhost:8080/?joinID=" . $encodedMeetingID;
+
+            // https://www.geeksforgeeks.org/get-the-full-url-in-php/
+            if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+                $link = "https";
+            else
+                $link = "http";
+                
+            // Here append the common URL characters.
+            $link .= "://";
+            
+            // Append the host(domain name, ip) to the URL.
+            $link .= $_SERVER['HTTP_HOST'];
+            
+            // Append the requested resource location to the URL
+            $link .= $_SERVER['PHP_SELF'];
+
+            $emaillink2 = "&body=The+host+" . $name ."+invites+you+to+join+the+" .$meetingName ."." . "%0aClick Here: " . $link . "?joinID=" . $encodedMeetingID;
             $url = $emaillink1 . $meetingName . $emaillink2;
             $meetingStart = $res[0]["start"];
             $meetingStop = $res[0]["stop"];

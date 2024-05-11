@@ -40,7 +40,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-        <title>DashMeet - Graphic Design is Our Passion</title>
+        <title>Host View</title>
         <meta name="author" content="Henry Newton">
         <meta name="description" content="DashMeet Scheduler">
         <meta name="keywords" content="DashMeet">
@@ -246,15 +246,15 @@
                     return [];
                 }
                 blocks = [];
-                let startDay = Math.floor((start - sunday) / DAY_IN_SECS);
-                let stopDay = Math.floor((stop - sunday) / DAY_IN_SECS);
+                let startDay = Math.floor((start - sunday) / DAY_IN_SECS.toFixed(2));
+                let stopDay = Math.floor((stop - sunday) / DAY_IN_SECS.toFixed(2));
 
                 if(startDay != stopDay) {
                     out = [];
 
                     startEnd = new Date(start.valueOf());
                     startEnd.setHours(23);
-                    startEnd.setMinutes(45);
+                    startEnd.setMinutes(55);
                     out = out.concat(get15Blocks(start, startEnd));
 
                     let tempDate2 = new Date(start.valueOf());
@@ -264,7 +264,7 @@
                         tempDate2.setDate(tempDate2.getDate() + 1);
                         tempDate3 = new Date(tempDate2.valueOf());
                         tempDate3.setHours(23);
-                        tempDate3.setMinutes(50);
+                        tempDate3.setMinutes(55);
                         out = out.concat(get15Blocks(tempDate2, tempDate3));
                     }
 
@@ -276,18 +276,17 @@
                     return out; 
                 }
 
-                startHour = Math.floor((((start - sunday) / DAY_IN_SECS) - startDay ) * 24);
+                startHour = Math.floor(((((start - sunday) / DAY_IN_SECS) - startDay ) * 24).toFixed(2));
 
-                stopHour = Math.floor((((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24);
+                stopHour = Math.floor(((((stop - sunday) / DAY_IN_SECS).toFixed(2) - stopDay ) * 24).toFixed(2));
 
-                startRem = (((start - sunday) / DAY_IN_SECS) - startDay ) * 24 - startHour;
+                startRem = ((((start - sunday) / DAY_IN_SECS) - startDay ).toFixed(2) * 24).toFixed(2) - startHour;
 
-                stopRem = (((stop - sunday) / DAY_IN_SECS) - stopDay ) * 24 - stopHour;
+                stopRem = ((((stop - sunday) / DAY_IN_SECS) - stopDay ).toFixed(2) * 24).toFixed(2) - stopHour;
 
                 if((startDay < 0 && stopDay < 0) || (startDay > 7 && startDay > 7)){
                     return [];
                 }
-
                 if(startDay < 0) {
                     startDay = 0;
                     startHour = 0;
@@ -298,7 +297,7 @@
                     stopHour = 23;
                     stopRem = 45;
                 }
-
+                
                 if(startRem >= .75)
                     startSub = 45;
                 else if(startRem >= .5)
@@ -332,16 +331,16 @@
                         rem = 0;
                     }
                 }
-
-                //DO IT ONE MORE TIME
-                tempH = (""+hour).padStart(2, "0");
-                tempR = (""+rem).padStart(2, "0");
-                blocks.push("" + startDay + "-" + tempH + tempR);
-                rem = rem + 15;
-                if(rem == 60) {
-                    hour = parseInt(hour) + 1;
-                    rem = 0;
-                }
+                
+                // //DO IT ONE MORE TIME
+                // tempH = (""+hour).padStart(2, "0");
+                // tempR = (""+rem).padStart(2, "0");
+                // blocks.push("" + startDay + "-" + tempH + tempR);
+                // rem = rem + 15;
+                // if(rem == 60) {
+                //     hour = parseInt(hour) + 1;
+                //     rem = 0;
+                // }
 
                 return blocks;
             }
@@ -368,20 +367,23 @@
                 <div class="d-flex flex-column modal-body">
                     <label for="link">Invite Link</label>
                     <input type="text" readonly="readonly" id="link" value="localhost:8080/?joinID=<?=$encodedMeetingID?>"> 
-                    <img class="copy-icon" src="images/copy.png" alt="copy icon">
+                    <script>
+                        $("#link").val(window.location.origin+window.location.pathname+"?joinID=<?=$encodedMeetingID?>")
+                    </script>
+                    <!-- <img class="copy-icon" src="images/copy.png" alt="copy icon"> -->
 
                     <div class="d-flex align-items-center btn btn-light gmail" onclick="window.open('<?=$url?>', '_blank')">
                         <img class="share-icon" src="images/gmail.png" alt="gmail icon">
                         <p>Gmail</p>
                     </div>
-                    <div class="d-flex align-items-center btn btn-light facebook">
+                    <!-- <div class="d-flex align-items-center btn btn-light facebook">
                         <img class="share-icon" src="images/facebook.png" alt="facebook icon">
                         <p>Facebook</p>
                     </div>
                     <div class="d-flex align-items-center btn btn-light twitter">
                         <img class="share-icon" src="images/twitter.png" alt="twitter icon">
                         <p>X (Twitter)</p>
-                    </div>
+                    </div> -->
                 </div>
               </div>
             </div>
@@ -533,7 +535,7 @@
                     <textarea class="description-entry" name="desc-entry" title="description entry box"></textarea> -->
 
                     <button class="btn btn-dark share-button" type="button" data-bs-toggle="modal" data-bs-target="#shareModal">Invite More</button>
-                    <button class="btn btn-success book-button" type="button">Book Meeting</button>
+                    <!-- <button class="btn btn-success book-button" type="button">Book Meeting</button> -->
                 </div>
             </div>
         </div>
