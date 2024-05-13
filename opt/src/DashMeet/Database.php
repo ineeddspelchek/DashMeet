@@ -14,13 +14,14 @@ class Database {
      * Connects to PostgresSQL
      */
     public function __construct() {
-        $host = Config::$db["host"];
-        $user = Config::$db["user"];
-        $database = Config::$db["database"];
-        $password = Config::$db["pass"];
-        $port = Config::$db["port"];
-
-        $this->dbConnector = pg_connect("host=$host port=$port dbname=$database user=$user password=$password");
+        $host = "nope";
+        $port = "nope";
+        $database = "nope";
+        $user = "nope";
+        $password = "nope";
+        $endpoint = "nope";
+    
+        $this->dbConnector = pg_pconnect("postgres://$user:$password@$host/$database?options=endpoint%3D$endpoint");
     }
 
     /**
